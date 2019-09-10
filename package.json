@@ -17,7 +17,7 @@
     "eslint": "3.19.0",
     "eslint-config-htmlacademy": "0.2.x",
     "eslint-plugin-react": "^7.14.3",
-    "gulp": "github:gulpjs/gulp#v4.0.2",
+    "gulp": "^4.0.2",
     "gulp-csso": "3.0.0",
     "gulp-imagemin": "3.2.0",
     "gulp-plumber": "1.1.0",
@@ -28,5 +28,8 @@
   },
   "engines": {
     "node": "6.10"
+  },
+  "dependencies": {
+    "gulp-less": "^4.0.1"
   }
 }
