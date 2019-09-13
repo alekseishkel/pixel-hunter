@@ -21,10 +21,11 @@
     centralScreen.appendChild(screens[screenNumber].cloneNode(true));
   };
 
-  let currentScreen = 3;
+  let currentScreen = 1;
   showScreen(currentScreen);
 
-  document.body.insertAdjacentHTML(`beforeend`, `<div class="arrows__wrap">
+  document.body.insertAdjacentHTML(`beforeend`,
+      `<div class="arrows__wrap">
   <style>
   .arrows__wrap {
     position: absolute;
@@ -42,38 +43,44 @@
     <button class="arrows__btn">-></button>
   </div>`);
 
-  const arrows = document.querySelector(`.arrows__btn`);
-  console.log(arrows);
-  arrows.addEventListener(`DOMContentLoaded`, function (evt) {
-    // if (evt.keyCode === RIGHT_ARROW_KEYCODE) {
-    console.log(`hahaha`);
-    evt.preventDefault();
+  const arrows = document.querySelectorAll(`.arrows__btn`);
+
+  const showNextScreen = () => {
     if (currentScreen < screens.length - 1) {
       ++currentScreen;
       showScreen(currentScreen);
     }
-    // }
-  });
+  };
 
-  document.addEventListener(`keydown`, function (evt) {
-    if (evt.keyCode === RIGHT_ARROW_KEYCODE) {
-      evt.preventDefault();
-      if (currentScreen < screens.length - 1) {
-        ++currentScreen;
-        showScreen(currentScreen);
-      }
+  const showPreviousScreen = () => {
+    if (currentScreen > 0) {
+      --currentScreen;
+      showScreen(currentScreen);
     }
+  };
+
+  arrows[0].addEventListener(`click`, (evt) => {
+    evt.preventDefault();
+    showPreviousScreen();
   });
 
-  document.addEventListener(`keydown`, function (evt) {
+  arrows[1].addEventListener(`click`, (evt) => {
+    evt.preventDefault();
+    showNextScreen();
+  });
+
+  document.addEventListener(`keydown`, (evt) => {
     if (evt.keyCode === LEFT_ARROW_KEYCODE) {
       evt.preventDefault();
-      if (currentScreen > 0) {
-        --currentScreen;
-        showScreen(currentScreen);
-      }
+      showPreviousScreen();
     }
   });
 
+  document.addEventListener(`keydown`, (evt) => {
+    if (evt.keyCode === RIGHT_ARROW_KEYCODE) {
+      evt.preventDefault();
+      showNextScreen();
+    }
+  });
 
 })();
