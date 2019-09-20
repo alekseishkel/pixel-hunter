@@ -1,86 +1,92 @@
-(function () {
+import {showScreen} from './util.js';
+import element from './greeting.js';
 
-  const greeting = document.getElementById(`greeting`).content;
-  const rules = document.getElementById(`rules`).content;
-  const game1 = document.getElementById(`game-1`).content;
-  const game2 = document.getElementById(`game-2`).content;
-  const game3 = document.getElementById(`game-3`).content;
-  const stats = document.getElementById(`stats`).content;
+const asterisk = document.querySelector(`.intro__asterisk`);
 
-  const screens = [greeting, rules, game1, game2, game3, stats];
+asterisk.addEventListener(`click`, (evt) => {
+  evt.preventDefault();
+  showScreen(element);
+});
 
-  const RIGHT_ARROW_KEYCODE = 39;
-  const LEFT_ARROW_KEYCODE = 37;
+  // const greeting = document.getElementById(`greeting`).content;
+  // const rules = document.getElementById(`rules`).content;
+  // const game1 = document.getElementById(`game-1`).content;
+  // const game2 = document.getElementById(`game-2`).content;
+  // const game3 = document.getElementById(`game-3`).content;
+  // const stats = document.getElementById(`stats`).content;
 
-  const centralScreen = document.querySelector(`.central`);
+  // const screens = [greeting, rules, game1, game2, game3, stats];
 
-  const showScreen = (screenNumber) => {
-    while (centralScreen.firstChild) {
-      centralScreen.removeChild(centralScreen.firstChild);
-    }
-    centralScreen.appendChild(screens[screenNumber].cloneNode(true));
-  };
+  // // const RIGHT_ARROW_KEYCODE = 39;
+  // // const LEFT_ARROW_KEYCODE = 37;
 
-  let currentScreen = 1;
-  showScreen(currentScreen);
+  // const centralScreen = document.querySelector(`.central`);
 
-  document.body.insertAdjacentHTML(`beforeend`,
-      `<div class="arrows__wrap">
-  <style>
-  .arrows__wrap {
-    position: absolute;
-    top: 95px;
-    left: 50%;
-    margin-left: -56px;
-  }
-  .arrows__btn {
-    background: none;
-    border: 2px solid black;
-    padding: 5px 20px;
-  }
-  </style>
-    <button class="arrows__btn"><-</button>
-    <button class="arrows__btn">-></button>
-  </div>`);
+  // const showScreen = (screenNumber) => {
+  //   while (centralScreen.firstChild) {
+  //     centralScreen.removeChild(centralScreen.firstChild);
+  //   }
+  //   centralScreen.appendChild(screens[screenNumber].cloneNode(true));
+  // };
 
-  const arrows = document.querySelectorAll(`.arrows__btn`);
+  // let currentScreen = 1;
+  // showScreen(currentScreen);
 
-  const showNextScreen = () => {
-    if (currentScreen < screens.length - 1) {
-      ++currentScreen;
-      showScreen(currentScreen);
-    }
-  };
+  // document.body.insertAdjacentHTML(`beforeend`,
+  //     `<div class="arrows__wrap">
+  // <style>
+  // .arrows__wrap {
+  //   position: absolute;
+  //   top: 95px;
+  //   left: 50%;
+  //   margin-left: -56px;
+  // }
+  // .arrows__btn {
+  //   background: none;
+  //   border: 2px solid black;
+  //   padding: 5px 20px;
+  // }
+  // </style>
+  //   <button class="arrows__btn"><-</button>
+  //   <button class="arrows__btn">-></button>
+  // </div>`);
 
-  const showPreviousScreen = () => {
-    if (currentScreen > 0) {
-      --currentScreen;
-      showScreen(currentScreen);
-    }
-  };
+  // const arrows = document.querySelectorAll(`.arrows__btn`);
 
-  arrows[0].addEventListener(`click`, (evt) => {
-    evt.preventDefault();
-    showPreviousScreen();
-  });
+  // const showNextScreen = () => {
+  //   if (currentScreen < screens.length - 1) {
+  //     ++currentScreen;
+  //     showScreen(currentScreen);
+  //   }
+  // };
 
-  arrows[1].addEventListener(`click`, (evt) => {
-    evt.preventDefault();
-    showNextScreen();
-  });
+  // const showPreviousScreen = () => {
+  //   if (currentScreen > 0) {
+  //     --currentScreen;
+  //     showScreen(currentScreen);
+  //   }
+  // };
 
-  document.addEventListener(`keydown`, (evt) => {
-    if (evt.keyCode === LEFT_ARROW_KEYCODE) {
-      evt.preventDefault();
-      showPreviousScreen();
-    }
-  });
+  // arrows[0].addEventListener(`click`, (evt) => {
+  //   evt.preventDefault();
+  //   showPreviousScreen();
+  // });
 
-  document.addEventListener(`keydown`, (evt) => {
-    if (evt.keyCode === RIGHT_ARROW_KEYCODE) {
-      evt.preventDefault();
-      showNextScreen();
-    }
-  });
+  // arrows[1].addEventListener(`click`, (evt) => {
+  //   evt.preventDefault();
+  //   showNextScreen();
+  // });
 
-})();
+  // document.addEventListener(`keydown`, (evt) => {
+  //   if (evt.keyCode === LEFT_ARROW_KEYCODE) {
+  //     evt.preventDefault();
+  //     showPreviousScreen();
+  //   }
+  // });
+
+  // document.addEventListener(`keydown`, (evt) => {
+  //   if (evt.keyCode === RIGHT_ARROW_KEYCODE) {
+  //     evt.preventDefault();
+  //     showNextScreen();
+  //   }
+  // });
