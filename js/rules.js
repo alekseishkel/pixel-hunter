@@ -22,7 +22,7 @@ const template = `
       Готовы?
     </p>
     <form class="rules__form">
-      <input class="rules__input" type="text" placeholder="Ваше Имя" minlength="1" required>
+      <input class="rules__input" type="text" placeholder="Ваше Имя" maxlength="25" pattern="\\s*" required>
       <button class="rules__button  continue" type="submit" disabled>Go!</button>
     </form>
   </div>
@@ -49,8 +49,8 @@ goButton.addEventListener(`click`, (evt) => {
 const userNameInput = element.querySelector(`.rules__input`);
 
 userNameInput.addEventListener(`keyup`, (evt) => {
-  console.log(userNameInput.value.length);
-  if (!userNameInput.validity.tooShort) {
+  if (!userNameInput.validity.valueMissing && userNameInput.validity.patternMismatch) {
+    userNameInput.value = userNameInput.value.replace(/\s+/g, ` `);
     goButton.disabled = false;
   } else {
     goButton.disabled = true;
