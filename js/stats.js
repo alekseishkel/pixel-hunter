@@ -1,6 +1,5 @@
 import {createDomElement, showScreen} from './util.js';
-// import el from './game-2.js';
-
+import greetingElement from './greeting.js';
 
 const template = `
   <header class="header">
@@ -123,5 +122,11 @@ const template = `
   </footer>`;
 
 const element = createDomElement(template);
+
+const backArrow = element.querySelector(`.back > img`);
+
+backArrow.addEventListener(`click`, () => {
+  showScreen(greetingElement);
+});
 
 export default element;

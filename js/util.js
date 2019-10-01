@@ -6,7 +6,7 @@ export const createDomElement = (template) => {
 
 const centralScreen = document.querySelector(`.central`);
 
-export const showScreen = (element) => {
+export let showScreen = (element) => {
   while (centralScreen.firstChild) {
     centralScreen.removeChild(centralScreen.firstChild);
   }

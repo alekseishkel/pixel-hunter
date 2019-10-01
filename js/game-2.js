@@ -1,5 +1,6 @@
 import {createDomElement, showScreen} from './util.js';
-import el from './game-3.js';
+import gameThreeElement from './game-3.js';
+import greetingElement from './greeting.js';
 
 
 const template = `
@@ -59,11 +60,17 @@ const template = `
 `;
 const element = createDomElement(template);
 
-const gameAnswer = element.querySelector(`.game__answer--paint > span`);
+const gameAnswer = element.querySelectorAll(`.game__answer`);
+const backArrow = element.querySelector(`.back > img`);
 
-gameAnswer.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  showScreen(el);
+const showNextScreen = () => {
+  showScreen(gameThreeElement);
+};
+
+gameAnswer.forEach((elem) => elem.addEventListener(`click`, showNextScreen));
+
+backArrow.addEventListener(`click`, () => {
+  showScreen(greetingElement);
 });
 
 export default element;

@@ -1,6 +1,6 @@
 import {createDomElement, showScreen} from './util.js';
-import el from './game-2.js';
-
+import gameTwoElement from './game-2.js';
+import greetingElement from './greeting.js';
 
 const template = `
   <header class="header">
@@ -71,36 +71,20 @@ const template = `
 
 const element = createDomElement(template);
 
-const gameAnswer = element.querySelectorAll(`.game__answer`);
+const gameAnswer = element.querySelectorAll(`.game__answer > input`);
+const backArrow = element.querySelector(`.back > img`);
 
-gameAnswer[0].addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  onGameAnswserClick();
-  return true;
-});
-
-gameAnswer[1].addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  onGameAnswserClick();
-  return true;
-});
-
-gameAnswer[2].addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  onGameAnswserClick();
-  return true;
-});
-
-gameAnswer[3].addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  onGameAnswserClick();
-  return true;
-});
 
 const onGameAnswserClick = () => {
-  if (gameAnswer[0].checked) {
-    showScreen(el);
+  if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
+    showScreen(gameTwoElement);
   }
 };
+
+gameAnswer.forEach((elem) => elem.addEventListener(`click`, onGameAnswserClick));
+
+backArrow.addEventListener(`click`, () => {
+  showScreen(greetingElement);
+});
 
 export default element;

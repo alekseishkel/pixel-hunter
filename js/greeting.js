@@ -1,5 +1,5 @@
 import {createDomElement, showScreen} from './util.js';
-import el from './rules.js';
+import rulesElement from './rules.js';
 
 const template = `
   <div class="greeting central--blur">
@@ -30,9 +30,8 @@ const element = createDomElement(template);
 
 const arrow = element.querySelector(`.greeting__continue > span > img`);
 
-arrow.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  showScreen(el);
+arrow.addEventListener(`click`, () => {
+  showScreen(rulesElement);
 });
 
 export default element;

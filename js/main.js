@@ -1,11 +1,10 @@
 import {showScreen} from './util.js';
-import element from './greeting.js';
+import greetingElement from './greeting.js';
 
 const asterisk = document.querySelector(`.intro__asterisk`);
 
-asterisk.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  showScreen(element);
+asterisk.addEventListener(`click`, () => {
+  showScreen(greetingElement);
 });
 
   // const greeting = document.getElementById(`greeting`).content;

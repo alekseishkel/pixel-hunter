@@ -1,5 +1,6 @@
 import {createDomElement, showScreen} from './util.js';
-import el from './game-1.js';
+import gameOneElement from './game-1.js';
+import greetingElement from './greeting.js';
 
 const template = `
   <header class="header">
@@ -40,10 +41,15 @@ const template = `
 const element = createDomElement(template);
 
 const goButton = element.querySelector(`.rules__button`);
+const backArrow = element.querySelector(`.back > img`);
 
 goButton.addEventListener(`click`, (evt) => {
   evt.preventDefault();
-  showScreen(el);
+  showScreen(gameOneElement);
+});
+
+backArrow.addEventListener(`click`, () => {
+  showScreen(greetingElement);
 });
 
 const userNameInput = element.querySelector(`.rules__input`);

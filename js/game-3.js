@@ -1,6 +1,6 @@
 import {createDomElement, showScreen} from './util.js';
-import el from './stats.js';
-
+import statsElement from './stats.js';
+import greetingElement from './greeting.js';
 
 const template = `
   <header class="header">
@@ -58,11 +58,17 @@ const template = `
 
 const element = createDomElement(template);
 
-const gameAnswer = element.querySelector(`.game__option`);
+const gameAnswer = element.querySelectorAll(`.game__option`);
+const backArrow = element.querySelector(`.back > img`);
 
-gameAnswer.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  showScreen(el);
+const showNextScreen = () => {
+  showScreen(statsElement);
+};
+
+gameAnswer.forEach((elem) => elem.addEventListener(`click`, showNextScreen));
+
+backArrow.addEventListener(`click`, () => {
+  showScreen(greetingElement);
 });
 
 export default element;
