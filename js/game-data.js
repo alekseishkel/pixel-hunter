@@ -1,24 +1,23 @@
-module.exports = {
+const INITIAL_GAME = Object.freeze({
   level: 0,
   lives: 2,
   time: 0
+});
+
+const changeLevel = (game, level) => {
+  if (level < 0) {
+    throw new Error(`Level should not be negative number`);
+  }
+
+  if (typeof level !== `number`) {
+    throw new Error(`Level should be of type number`);
+  }
+
+  const newGame = Object.assign({}, game, {
+    level
+  });
+  return newGame;
 };
 
-let currentLevel = exports.INITIAL_GAME.level;
-console.log(exports.INITIAL_GAME.level);
-
-exports.changeLevel = (level) => {
-  currentLevel = level;
-  return currentLevel;
-};
-
-module.exports = {
-  name: `Мама`,
-  age: 12,
-  male: false
-};
-module.exports = {
-  name: `Папа`,
-  age: 12,
-  male: true
-};
+module.exports.INITIAL_GAME = INITIAL_GAME;
+module.exports.changeLevel = changeLevel;

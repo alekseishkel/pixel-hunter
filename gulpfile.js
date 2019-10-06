@@ -50,7 +50,7 @@ gulp.task(`scripts`, function () {
 
 gulp.task(`test`, function () {
   return gulp
-    .src([`js/*.test.js`])
+    .src([`js/test/**/*.js`])
     .pipe(rollup({
       plugins: [
         commonjs()
