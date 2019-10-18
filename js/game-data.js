@@ -1,13 +1,13 @@
-const INITIAL_GAME = Object.freeze({
+const INITIAL_GAME = {
   level: 0,
   lives: 3,
   time: 0
-});
+};
 
-const answers = [
+const userAnswers = [
   {
     answer: true,
-    time: 6000
+    time: 4000
   },
   {
     answer: true,
@@ -19,31 +19,26 @@ const answers = [
   },
   {
     answer: true,
-    time: 1000
+    time: 11000
   },
   {
-    answer: true,
+    answer: false,
     time: 9000
   },
 ];
 
-const answersNumber = 10;
-const answerSpeed = 3000;
-const lives = 3;
-const score = 1150;
-
-const checkAnswerSpeed = (speed) => {
-  if (speed < 5000) {
-    throw new Error(`Speed should be more then 5000ms`);
-  }
-  return score;
+const POINTS_COUNT = {
+  trueAnswerScore: 100,
+  fastAnswerScore: 50,
+  slowAnswerScore: 50,
+  oneLiveScore: 50,
+  slowSpeed: 15000,
+  fastSpeed: 5000
 };
-
-console.log(checkAnswerSpeed(10000));
 
 const changeLevel = (game, level) => {
   if (level < 0) {
-    throw new Error(`Level should not be negative number`);
+    throw new Error(`Level should not be negative value`);
   }
 
   if (typeof level !== `number`) {
@@ -53,15 +48,82 @@ const changeLevel = (game, level) => {
   const newGame = Object.assign({}, game, {
     level
   });
+
   return newGame;
+};
+
+const countScore = (answers, lives) => {
+  if (lives < 0) {
+    throw new Error(`Lives should not be negative value`);
+  }
+
+  if (typeof lives !== `number`) {
+    throw new Error(`Lives should be of type number`);
+  }
+
+  let score = 0;
+
+  answers.forEach((el) => {
+    if (el.answer) {
+      score += POINTS_COUNT.trueAnswerScore;
+    }
+    if (el.time <= POINTS_COUNT.fastSpeed) {
+      score += POINTS_COUNT.fastAnswerScore;
+    }
+    if (el.time >= POINTS_COUNT.slowSpeed) {
+      score -= POINTS_COUNT.slowAnswerScore;
+    }
+  });
+
+  if (lives > 0) {
+    score += (lives * POINTS_COUNT.oneLiveScore);
+  }
+
+  if (lives === 0) {
+    score = -1;
+  }
+
+  return score;
+};
+
+const countLives = (answers) => {
+  if (answers < 0) {
+    throw new Error(`User answers should not be negative value, it should be object`);
+  }
+
+  if (answers === null) {
+    throw new Error(`User answers should not be null, it should be object`);
+  }
+
+  if (typeof answers === `undefined`) {
+    throw new Error(`User answers should not be undefined, it should be object`);
+  }
+
+  let userLives;
+  let falseAnswers = 0;
+
+  answers.forEach((el) => {
+    if (!el.answer) {
+      ++falseAnswers;
+    }
+
+    if (!el.answer) {
+      userLives = INITIAL_GAME.lives - 1;
+    }
+  });
+
+  if (falseAnswers > 3) {
+    throw new Error(`Should be -1 or less wrong answers`);
+  }
+
+  return userLives;
 };
 
 module.exports = {
   changeLevel,
   INITIAL_GAME,
-  answersNumber,
-  answerSpeed,
-  lives,
-  checkAnswerSpeed
+  userAnswers,
+  countScore,
+  countLives
 };
 
