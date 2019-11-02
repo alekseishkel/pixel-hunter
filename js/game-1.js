@@ -1,6 +1,11 @@
 import {createDomElement, showScreen} from './util.js';
 import gameTwoElement from './game-2.js';
 import greetingElement from './greeting.js';
+import headerElement from './header.js';
+
+// const centralScreen = document.querySelector(`.game`);
+
+// centralScreen.appendChild(headerElement);
 
 const template = `
   <header class="header">
