@@ -3,26 +3,8 @@ import gameTwoElement from './game-2.js';
 import greetingElement from './greeting.js';
 import headerElement from './header.js';
 
-// const centralScreen = document.querySelector(`.game`);
-
-// centralScreen.appendChild(headerElement);
-
 const template = `
-  <header class="header">
-    <div class="header__back">
-      <span class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.png" width="101" height="44">
-      </span>
-    </div>
-    <h1 class="game__timer">NN</h1>
-    <div class="game__lives">
-      <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">
-      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-      <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-    </div>
-  </header>
-  <div class="game">
+    <div class="game">
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
       <div class="game__option">
@@ -77,12 +59,13 @@ const template = `
 const element = createDomElement(template);
 
 const gameAnswer = element.querySelectorAll(`.game__answer > input`);
-const backArrow = element.querySelector(`.back > img`);
-
+const backArrow = headerElement.querySelector(`.back > img`);
+const centralScreen = document.querySelector(`.central`);
 
 const onGameAnswserClick = () => {
   if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
     showScreen(gameTwoElement);
+    centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
   }
 };
 
