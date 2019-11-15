@@ -2,13 +2,18 @@ import {createDomElement, showScreen} from './util.js';
 import gameTwoElement from './game-2.js';
 import greetingElement from './greeting.js';
 import headerElement from './header.js';
+import {level} from './data.js';
+
+// console.log(level.questions.values());
+let arr = level.questions.imagesSizes.width;
+console.log(arr);
 
 const template = `
     <div class="game">
-    <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+    <p class="game__task">${level.description}</p>
     <form class="game__content">
       <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+        <img src=${Array.from(level.questions.images)[0]} alt="Option 1" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.height}>
         <label class="game__answer game__answer--photo">
           <input name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -19,7 +24,7 @@ const template = `
         </label>
       </div>
       <div class="game__option">
-        <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+        <img src=${Array.from(level.questions.images)[1]} alt="Option 2" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.width}>
         <label class="game__answer  game__answer--photo">
           <input name="question2" type="radio" value="photo">
           <span>Фото</span>
