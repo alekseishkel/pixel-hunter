@@ -1,7 +1,9 @@
 import {createDomElement, showScreen} from './util.js';
 import gameThreeElement from './game-3.js';
 import greetingElement from './greeting.js';
-import headerElement from './header.js';
+import {headerElement, backArrow} from './header.js';
+import {wr} from './screen.js';
+
 
 const template = `
   <div class="game">
@@ -46,8 +48,6 @@ const template = `
 `;
 const element = createDomElement(template);
 
-const gameAnswer = element.querySelectorAll(`.game__answer`);
-const backArrow = headerElement.querySelector(`.back > img`);
 const centralScreen = document.querySelector(`.central`);
 
 const showNextScreen = () => {
@@ -55,7 +55,9 @@ const showNextScreen = () => {
   centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
 };
 
-gameAnswer.forEach((elem) => elem.addEventListener(`click`, showNextScreen));
+// const gameAnswer = gameAnswer.querySelectorAll(`.game__answer > input`);
+
+// gameAnswer.forEach((elem) => elem.addEventListener(`click`, showNextScreen));
 
 backArrow.addEventListener(`click`, () => {
   showScreen(greetingElement);

@@ -1,7 +1,8 @@
 import {createDomElement, showScreen} from './util.js';
 import gameOneElement from './game-1.js';
 import greetingElement from './greeting.js';
-import headerElement from './header.js';
+import {headerElement, backArrow} from './header.js';
+import {wr} from './screen.js';
 
 const template = `
   <header class="header">
@@ -42,13 +43,20 @@ const template = `
 const element = createDomElement(template);
 
 const goButton = element.querySelector(`.rules__button`);
-const backArrow = element.querySelector(`.back > img`);
 const centralScreen = document.querySelector(`.central`);
+const gameContent = gameOneElement.querySelector(`.game__content`);
+
+// const wrapper = document.createElement(`div`);
+// wrapper.className = `game__option`;
+// wrapper.insertAdjacentHTML(`afterbegin`, screenElement);
+gameContent.insertAdjacentElement(`afterbegin`, wr);
+// console.log(wrapper);
 
 goButton.addEventListener(`click`, (evt) => {
   evt.preventDefault();
   showScreen(gameOneElement);
   centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+
 });
 
 backArrow.addEventListener(`click`, () => {

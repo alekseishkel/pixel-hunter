@@ -16,7 +16,5 @@ const headerTemplate = (state) => `
     </div>
   </header>`;
 
-const headerElement = createDomElement(headerTemplate(initialState));
-
-export default headerElement;
-
+export const headerElement = createDomElement(headerTemplate(initialState));
+export const backArrow = headerElement.querySelector(`.back > img`);

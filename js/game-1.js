@@ -1,39 +1,15 @@
 import {createDomElement, showScreen} from './util.js';
 import gameTwoElement from './game-2.js';
 import greetingElement from './greeting.js';
-import headerElement from './header.js';
+import {headerElement, backArrow} from './header.js';
 import {level} from './data.js';
-
-// console.log(level.questions.values());
-let arr = level.questions.imagesSizes.width;
-console.log(arr);
+import {wr} from './screen.js';
 
 const template = `
     <div class="game">
     <p class="game__task">${level.description}</p>
     <form class="game__content">
-      <div class="game__option">
-        <img src=${Array.from(level.questions.images)[0]} alt="Option 1" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.height}>
-        <label class="game__answer game__answer--photo">
-          <input name="question1" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer game__answer--paint">
-          <input name="question1" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
-      <div class="game__option">
-        <img src=${Array.from(level.questions.images)[1]} alt="Option 2" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.width}>
-        <label class="game__answer  game__answer--photo">
-          <input name="question2" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--paint">
-          <input name="question2" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
+
     </form>
     <div class="stats">
       <ul class="stats">
@@ -61,16 +37,39 @@ const template = `
     </div>
   </footer>`;
 
+//   <div class="game__option">
+//   <img src=${Array.from(level.questions.images)[0]} alt="Option 1" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.height}>
+//   <label class="game__answer game__answer--photo">
+//     <input name="question1" type="radio" value="photo">
+//     <span>Фото</span>
+//   </label>
+//   <label class="game__answer game__answer--paint">
+//     <input name="question1" type="radio" value="paint">
+//     <span>Рисунок</span>
+//   </label>
+// </div>
+// <div class="game__option">
+//   <img src=${Array.from(level.questions.images)[1]} alt="Option 2" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.height}>
+//   <label class="game__answer  game__answer--photo">
+//     <input name="question2" type="radio" value="photo">
+//     <span>Фото</span>
+//   </label>
+//   <label class="game__answer  game__answer--paint">
+//     <input name="question2" type="radio" value="paint">
+//     <span>Рисунок</span>
+//   </label>
+//   </div>
+
 const element = createDomElement(template);
 
-const gameAnswer = element.querySelectorAll(`.game__answer > input`);
-const backArrow = headerElement.querySelector(`.back > img`);
 const centralScreen = document.querySelector(`.central`);
+const gameAnswer = wr.querySelectorAll(`.game__answer > input`);
+console.log(gameAnswer);
 
 const onGameAnswserClick = () => {
   if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
     showScreen(gameTwoElement);
-    centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+    centralScreen.insertAdjacentHTML(`afterbegin`, headerElement);
   }
 };
 
