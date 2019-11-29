@@ -2,7 +2,7 @@ import {createDomElement, showScreen} from './util.js';
 import statsElement from './stats.js';
 import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
-import {wr} from './screen.js';
+import {makeAScreenTemplate} from './screen.js';
 
 const template = `
   <div class="game">

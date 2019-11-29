@@ -3,7 +3,9 @@ import gameTwoElement from './game-2.js';
 import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
 import {level} from './data.js';
-import {wr} from './screen.js';
+import {makeAScreenTemplate} from './screen.js';
+import {gameAnswer} from './rules.js';
+
 
 const template = `
     <div class="game">
@@ -59,24 +61,36 @@ const template = `
 //     <span>Рисунок</span>
 //   </label>
 //   </div>
-
 const element = createDomElement(template);
-
 const centralScreen = document.querySelector(`.central`);
-const gameAnswer = wr.querySelectorAll(`.game__answer > input`);
-console.log(gameAnswer);
+// console.log(gameAnswer);
 
 const onGameAnswserClick = () => {
+
   if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
     showScreen(gameTwoElement);
     centralScreen.insertAdjacentHTML(`afterbegin`, headerElement);
+    console.log(gameAnswer);
+
   }
 };
 
-gameAnswer.forEach((elem) => elem.addEventListener(`click`, onGameAnswserClick));
+const browseGameAnswers = () => {
+  gameAnswer.forEach((elem) => elem.addEventListener(`click`, onGameAnswserClick));
+};
 
 backArrow.addEventListener(`click`, () => {
   showScreen(greetingElement);
 });
 
-export default element;
+const showGameOneScreen = (evt) => {
+  evt.preventDefault();
+  showScreen(element);
+  centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+  const images = Array.from(level.questions.images);
+  makeAScreenTemplate(images, element);
+  gameAnswer = document.querySelectorAll(`.game__answer > input`);
+  console.log(gameAnswer);
+};
+
+export {element as gameOneElement, onGameAnswserClick, browseGameAnswers};

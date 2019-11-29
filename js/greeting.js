@@ -1,5 +1,5 @@
 import {createDomElement, showScreen} from './util.js';
-import rulesElement from './rules.js';
+import {rulesElement} from './rules.js';
 
 const template = `
   <div class="greeting central--blur">
