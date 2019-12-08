@@ -64,6 +64,15 @@ const template = `
 const element = createDomElement(template);
 const centralScreen = document.querySelector(`.central`);
 // console.log(gameAnswer);
+const images = Array.from(level.questions.images);
+
+const gameOdin = (evt) => {
+  evt.preventDefault();
+  showScreen(element);
+  centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+  gameAnswer = makeAScreenTemplate(images, element, gameAnswer);
+  console.log(gameAnswer);
+};
 
 const onGameAnswserClick = () => {
 
@@ -93,4 +102,4 @@ const showGameOneScreen = (evt) => {
   console.log(gameAnswer);
 };
 
-export {element as gameOneElement, onGameAnswserClick, browseGameAnswers};
+export {element as gameOneElement, onGameAnswserClick, browseGameAnswers, gameOdin};

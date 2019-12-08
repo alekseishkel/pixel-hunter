@@ -1,5 +1,5 @@
 import {createDomElement, showScreen} from './util.js';
-import {gameOneElement, onGameAnswserClick, browseGameAnswers} from './game-1.js';
+import {gameOneElement, onGameAnswserClick, browseGameAnswers, gameOdin} from './game-1.js';
 import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
 import {makeAScreenTemplate} from './screen.js';
@@ -56,11 +56,12 @@ const centralScreen = document.querySelector(`.central`);
 // console.log(wrapper);
 let gameAnswer;
 goButton.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  showScreen(gameOneElement);
-  centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-  gameAnswer = makeAScreenTemplate(images, gameOneElement, gameAnswer);
-  console.log(gameAnswer);
+  gameOdin();
+  // evt.preventDefault();
+  // showScreen(gameOneElement);
+  // centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+  // gameAnswer = makeAScreenTemplate(images, gameOneElement, gameAnswer);
+  // console.log(gameAnswer);
 });
 
 backArrow.addEventListener(`click`, () => {

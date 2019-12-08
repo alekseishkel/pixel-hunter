@@ -1,6 +1,5 @@
 import {level} from './data.js';
 
-
 const makeAScreenTemplate = (arr, gameElement) => {
   arr.forEach((elem, index) => {
     let screenTemplate = `
@@ -20,9 +19,9 @@ const makeAScreenTemplate = (arr, gameElement) => {
     gameContent.insertAdjacentElement(`beforeend`, wrapper);
 
   });
-  // gameAnswer = document.querySelectorAll(`.game__answer > input`);
-  // console.log(gameAnswer);
-  // return gameAnswer;
+  const gameAnswer = document.querySelectorAll(`.game__answer > input`);
+  console.log(gameAnswer);
+  return gameAnswer;
 };
 console.log(makeAScreenTemplate);
 
