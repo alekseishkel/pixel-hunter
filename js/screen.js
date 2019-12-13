@@ -3,7 +3,7 @@ import {level} from './data.js';
 const makeAScreenTemplate = (arr, gameElement) => {
   arr.forEach((elem, index) => {
     let screenTemplate = `
-        <img src=${elem} alt="Option ${index + 1}" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.height}>
+        <img src=${elem} alt="Option ${index + 1}" width=${level[0].questions.imagesSizes.width} height=${level[0].questions.imagesSizes.height}>
         <label class="game__answer game__answer--photo">
           <input name="question${index + 1}" type="radio" value="photo">
           <span>Фото</span>
@@ -17,16 +17,7 @@ const makeAScreenTemplate = (arr, gameElement) => {
     wrapper.insertAdjacentHTML(`afterbegin`, screenTemplate);
     const gameContent = gameElement.querySelector(`.game__content`);
     gameContent.insertAdjacentElement(`beforeend`, wrapper);
-
   });
-  const gameAnswer = document.querySelectorAll(`.game__answer > input`);
-  console.log(gameAnswer);
-  return gameAnswer;
 };
-console.log(makeAScreenTemplate);
-
-// const wr = makeAScreenTemplate(images);
-// console.log(wr);
-// const gameAnswer = gameAnswer.querySelectorAll(`.game__answer > input`);
 
 export {makeAScreenTemplate};

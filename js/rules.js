@@ -1,5 +1,5 @@
 import {createDomElement, showScreen} from './util.js';
-import {gameOneElement, onGameAnswserClick, browseGameAnswers, gameOdin} from './game-1.js';
+import {gameOneElement, browseGameAnswers} from './game-1.js';
 import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
 import {makeAScreenTemplate} from './screen.js';
@@ -42,26 +42,16 @@ const template = `
   </footer>`;
 
 const element = createDomElement(template);
-
-const images = Array.from(level.questions.images);
-
+const images = Array.from(level[0].questions.images);
 const goButton = element.querySelector(`.rules__button`);
 const centralScreen = document.querySelector(`.central`);
-// const gameContent = gameElement.querySelector(`.game__content`);
 
-// const wrapper = document.createElement(`div`);
-// wrapper.className = `game__option`;
-// wrapper.insertAdjacentHTML(`afterbegin`, screenElement);
-// gameContent.insertAdjacentElement(`afterbegin`, wr);
-// console.log(wrapper);
-let gameAnswer;
 goButton.addEventListener(`click`, (evt) => {
-  gameOdin();
-  // evt.preventDefault();
-  // showScreen(gameOneElement);
-  // centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-  // gameAnswer = makeAScreenTemplate(images, gameOneElement, gameAnswer);
-  // console.log(gameAnswer);
+  evt.preventDefault();
+  showScreen(gameOneElement);
+  centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+  makeAScreenTemplate(images, gameOneElement);
+  browseGameAnswers();
 });
 
 backArrow.addEventListener(`click`, () => {
@@ -79,5 +69,5 @@ userNameInput.addEventListener(`keyup`, (evt) => {
   }
 });
 
-export {element as rulesElement, gameAnswer};
+export {element as rulesElement};
 

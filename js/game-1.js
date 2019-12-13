@@ -4,8 +4,6 @@ import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
 import {level} from './data.js';
 import {makeAScreenTemplate} from './screen.js';
-import {gameAnswer} from './rules.js';
-
 
 const template = `
     <div class="game">
@@ -39,67 +37,23 @@ const template = `
     </div>
   </footer>`;
 
-//   <div class="game__option">
-//   <img src=${Array.from(level.questions.images)[0]} alt="Option 1" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.height}>
-//   <label class="game__answer game__answer--photo">
-//     <input name="question1" type="radio" value="photo">
-//     <span>Фото</span>
-//   </label>
-//   <label class="game__answer game__answer--paint">
-//     <input name="question1" type="radio" value="paint">
-//     <span>Рисунок</span>
-//   </label>
-// </div>
-// <div class="game__option">
-//   <img src=${Array.from(level.questions.images)[1]} alt="Option 2" width=${level.questions.imagesSizes.width} height=${level.questions.imagesSizes.height}>
-//   <label class="game__answer  game__answer--photo">
-//     <input name="question2" type="radio" value="photo">
-//     <span>Фото</span>
-//   </label>
-//   <label class="game__answer  game__answer--paint">
-//     <input name="question2" type="radio" value="paint">
-//     <span>Рисунок</span>
-//   </label>
-//   </div>
 const element = createDomElement(template);
 const centralScreen = document.querySelector(`.central`);
-// console.log(gameAnswer);
-const images = Array.from(level.questions.images);
-
-const gameOdin = (evt) => {
-  evt.preventDefault();
-  showScreen(element);
-  centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-  gameAnswer = makeAScreenTemplate(images, element, gameAnswer);
-  console.log(gameAnswer);
-};
-
-const onGameAnswserClick = () => {
-
-  if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
-    showScreen(gameTwoElement);
-    centralScreen.insertAdjacentHTML(`afterbegin`, headerElement);
-    console.log(gameAnswer);
-
-  }
-};
+const images = Array.from(level[1].questions.images);
 
 const browseGameAnswers = () => {
-  gameAnswer.forEach((elem) => elem.addEventListener(`click`, onGameAnswserClick));
+  const gameAnswer = document.querySelectorAll(`.game__answer > input`);
+  gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
+    if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
+      showScreen(gameTwoElement);
+      centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+      makeAScreenTemplate(images, gameTwoElement);
+    }
+  }));
 };
 
 backArrow.addEventListener(`click`, () => {
   showScreen(greetingElement);
 });
 
-const showGameOneScreen = (evt) => {
-  evt.preventDefault();
-  showScreen(element);
-  centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-  const images = Array.from(level.questions.images);
-  makeAScreenTemplate(images, element);
-  gameAnswer = document.querySelectorAll(`.game__answer > input`);
-  console.log(gameAnswer);
-};
-
-export {element as gameOneElement, onGameAnswserClick, browseGameAnswers, gameOdin};
+export {element as gameOneElement, browseGameAnswers};
