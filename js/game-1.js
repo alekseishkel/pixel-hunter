@@ -1,15 +1,14 @@
 import {createDomElement, showScreen} from './util.js';
-import gameTwoElement from './game-2.js';
+import {gameTwoElement, showNextScreen} from './game-2.js';
 import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
-import {level} from './data.js';
+import {level} from './data-structure.js';
 import {makeAScreenTemplate} from './screen.js';
 
 const template = `
     <div class="game">
-    <p class="game__task">${level.description}</p>
+    <p class="game__task">${level[0].description}</p>
     <form class="game__content">
-
     </form>
     <div class="stats">
       <ul class="stats">
@@ -40,14 +39,16 @@ const template = `
 const element = createDomElement(template);
 const centralScreen = document.querySelector(`.central`);
 const images = Array.from(level[1].questions.images);
+const numberOfGameScreen = 1;
 
 const browseGameAnswers = () => {
-  const gameAnswer = document.querySelectorAll(`.game__answer > input`);
+  const gameAnswer = centralScreen.querySelectorAll(`.game__answer > input`);
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
     if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
       showScreen(gameTwoElement);
       centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-      makeAScreenTemplate(images, gameTwoElement);
+      makeAScreenTemplate(images, gameTwoElement, numberOfGameScreen);
+      showNextScreen();
     }
   }));
 };

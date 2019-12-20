@@ -10,5 +10,6 @@ export let showScreen = (element) => {
   while (centralScreen.firstChild) {
     centralScreen.removeChild(centralScreen.firstChild);
   }
-  centralScreen.appendChild(element);
+  const a = centralScreen.appendChild(element);
+  return a;
 };

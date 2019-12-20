@@ -2,21 +2,12 @@ import {createDomElement, showScreen} from './util.js';
 import statsElement from './stats.js';
 import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
-import {makeAScreenTemplate} from './screen.js';
+import {level} from './data-structure.js';
 
 const template = `
   <div class="game">
-    <p class="game__task">Найдите рисунок среди изображений</p>
+    <p class="game__task">${level[1].description}</p>
     <form class="game__content  game__content--triple">
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option  game__option--selected">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
     </form>
     <div class="stats">
       <ul class="stats">
@@ -49,15 +40,15 @@ const element = createDomElement(template);
 const centralScreen = document.querySelector(`.central`);
 
 const showNextScreen = () => {
-  showScreen(statsElement);
-  centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+  const gameAnswer = centralScreen.querySelectorAll(`.game__option`);
+  gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
+    showScreen(statsElement);
+    centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+  }));
 };
-
-// const gameAnswer = gameAnswer.querySelectorAll(`.game__answer > input`);
-// gameAnswer.forEach((elem) => elem.addEventListener(`click`, showNextScreen));
 
 backArrow.addEventListener(`click`, () => {
   showScreen(greetingElement);
 });
 
-export default element;
+export {element as gameThreeElement, showNextScreen as showStatsScreen};

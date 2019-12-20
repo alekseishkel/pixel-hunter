@@ -1,5 +1,5 @@
 import {createDomElement} from './util.js';
-import {initialState} from './data.js';
+import {initialState} from './data-structure.js';
 
 const headerTemplate = (state) => `
   <header class="header">

@@ -3,7 +3,7 @@ import {gameOneElement, browseGameAnswers} from './game-1.js';
 import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
 import {makeAScreenTemplate} from './screen.js';
-import {level} from './data.js';
+import {level} from './data-structure.js';
 
 const template = `
   <header class="header">
@@ -45,12 +45,13 @@ const element = createDomElement(template);
 const images = Array.from(level[0].questions.images);
 const goButton = element.querySelector(`.rules__button`);
 const centralScreen = document.querySelector(`.central`);
+const numberOfGameScreen = 0;
 
 goButton.addEventListener(`click`, (evt) => {
   evt.preventDefault();
   showScreen(gameOneElement);
   centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-  makeAScreenTemplate(images, gameOneElement);
+  makeAScreenTemplate(images, gameOneElement, numberOfGameScreen);
   browseGameAnswers();
 });
 

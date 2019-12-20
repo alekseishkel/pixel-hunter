@@ -1,25 +1,14 @@
 import {createDomElement, showScreen} from './util.js';
-import gameThreeElement from './game-3.js';
+import {gameThreeElement, showStatsScreen} from './game-3.js';
 import greetingElement from './greeting.js';
 import {headerElement, backArrow} from './header.js';
+import {level} from './data-structure.js';
 import {makeAScreenTemplate} from './screen.js';
-
 
 const template = `
   <div class="game">
-    <p class="game__task">Угадай, фото или рисунок?</p>
+    <p class="game__task">${level[1].description}</p>
     <form class="game__content  game__content--wide">
-      <div class="game__option">
-        <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
-        <label class="game__answer  game__answer--photo">
-          <input name="question1" type="radio" value="photo">
-          <span>Фото</span>
-        </label>
-        <label class="game__answer  game__answer--wide  game__answer--paint">
-          <input name="question1" type="radio" value="paint">
-          <span>Рисунок</span>
-        </label>
-      </div>
     </form>
     <div class="stats">
       <ul class="stats">
@@ -47,20 +36,22 @@ const template = `
     </div>
 `;
 const element = createDomElement(template);
-
 const centralScreen = document.querySelector(`.central`);
+const images = Array.from(level[2].questions.images);
+const numberOfGameScreen = 2;
 
 const showNextScreen = () => {
-  showScreen(gameThreeElement);
-  centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+  const gameAnswer = centralScreen.querySelectorAll(`.game__answer > input`);
+  gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
+    showScreen(gameThreeElement);
+    centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+    makeAScreenTemplate(images, gameThreeElement, numberOfGameScreen);
+    showStatsScreen();
+  }));
 };
-
-// const gameAnswer = gameAnswer.querySelectorAll(`.game__answer > input`);
-
-// gameAnswer.forEach((elem) => elem.addEventListener(`click`, showNextScreen));
 
 backArrow.addEventListener(`click`, () => {
   showScreen(greetingElement);
 });
 
-export default element;
+export {element as gameTwoElement, showNextScreen};
