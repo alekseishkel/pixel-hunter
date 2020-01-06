@@ -9,6 +9,21 @@ const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen) => {
   }
 
   arr.forEach((elem, index) => {
+    const image = new Image();
+    image.src = elem;
+    image.onload = () => {
+      const realWidth = image.naturalWidth;
+      const realHeight = image.naturalHeight;
+      console.log(w);
+      console.log(h);
+      let imageWidth; 
+      if (image.naturalWidth > image.naturalHeight) {
+        imageWidth = level[numberOfGameScreen].questions.imagesSizes.width;
+      } else {
+        
+      }
+    };
+    
     if (level[numberOfGameScreen].questions.span) {
       screenTemplate = `
         <img src=${elem} alt="Option ${index + 1}" width=${level[numberOfGameScreen].questions.imagesSizes.width} height=${level[numberOfGameScreen].questions.imagesSizes.height}>
