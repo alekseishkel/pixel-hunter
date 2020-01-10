@@ -47,8 +47,7 @@ const browseGameAnswers = () => {
     if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
       showScreen(gameTwoElement);
       centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-      makeAScreenTemplate(images, gameTwoElement, numberOfGameScreen);
-      showNextScreen();
+      makeAScreenTemplate(images, gameTwoElement, numberOfGameScreen, showNextScreen);
     }
   }));
 };
