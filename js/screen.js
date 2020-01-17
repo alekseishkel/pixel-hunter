@@ -8,10 +8,11 @@ const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, callback) => 
     gameContent.removeChild(gameContent.firstChild);
   }
 
+  let imagesArray = [];
+
   arr.forEach((elem, index) => {
     const image = new Image();
     image.src = elem;
-
     const getImageSizes = () => {
       const realWidth = image.naturalWidth;
       const realHeight = image.naturalHeight;
@@ -23,19 +24,22 @@ const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, callback) => 
         imageWidth = level[numberOfGameScreen].questions.imagesSizes.height * realWidth / realHeight;
       }
       console.log(imageWidth);
-
-      return imageWidth;
+      imagesArray.push(image);
     };
 
-    const imageLoadHandler = () => {
-      const imageWidth = image.addEventListener(`load`, getImageSizes);
-      console.log(imageWidth);
-      return imageWidth;
+
+    const putScreenTemplate = () => {
+      image.addEventListener(`load`, () => {
+        getImageSizes();
+        console.log(imagesArray[0].src);
+
+      });
     };
+
 
     if (level[numberOfGameScreen].questions.span) {
       screenTemplate = `
-            <img src=${elem} alt="Option ${index + 1}" width=${getImageSizes()}>
+            <img src=${elem} alt="Option ${index + 1}" width=${putScreenTemplate()}>
             <label class="game__answer game__answer--photo">
               <input name="question${index + 1}" type="radio" value="photo">
               <span>Фото</span>
@@ -46,7 +50,7 @@ const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, callback) => 
             </label>`;
     } else {
       screenTemplate = `
-            <img src=${elem} alt="Option ${index + 1}" width=${imageLoadHandler()}>
+            <img src=${elem} alt="Option ${index + 1}" width=${putScreenTemplate()}>
             <label class="game__answer game__answer--photo">
               <input name="question${index + 1}" type="radio" value="photo">
             </label>
@@ -64,6 +68,18 @@ const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, callback) => 
       callback();
     }
   });
+  // let users = [1, 2, 3, 2, 1, 5, 6];
+  // let us = [2, 3, 5, 1, 3, 6, 7, 43, 2, 65, 545, 54, 32];
+  // let user;
+
+  // us.forEach((element, elementIndex) => {
+  //   user = users.find((item) => item === element);
+  //   if (user.typeOf(`number`)) {
+  //     console.log(user);
+
+  //   }
+
+  // });
 };
 
 export {makeAScreenTemplate};
