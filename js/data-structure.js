@@ -7,7 +7,7 @@ export const level = [
   {
     description: `Угадайте для каждого изображения фото или рисунок?`,
     questions: {
-      images: new Set([`https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`, `https://k32.kn3.net/5C7060EC5.jpg`, `https://placekitten.com/400/400`, `https://placekitten.com/305/455`]),
+      images: new Set([`https://k42.kn3.net/CF42609C8.jpg`, `https://k42.kn3.net/D2F0370D6.jpg`, `https://k32.kn3.net/5C7060EC5.jpg`]),
       imagesSizes: {
         width: `468`,
         height: `458`
