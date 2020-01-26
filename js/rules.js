@@ -52,8 +52,6 @@ goButton.addEventListener(`click`, (evt) => {
   showScreen(gameOneElement);
   centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
   makeAScreenTemplate(images, gameOneElement, numberOfGameScreen, browseGameAnswers);
-  // browseGameAnswers();
-  // makeAScreenTemplate(`load`, browseGameAnswers);
 });
 
 backArrow.addEventListener(`click`, () => {

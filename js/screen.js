@@ -39,16 +39,17 @@ const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, callback) => 
     wrapper.insertAdjacentHTML(`afterbegin`, screenTemplate);
     gameContent.insertAdjacentElement(`beforeend`, wrapper);
 
-
   });
 
   const gameOptions = gameElement.querySelectorAll(`.game__option > img`);
+
   gameOptions.forEach((element) => {
     element.onload = () => {
       const realWidth = element.naturalWidth;
       const realHeight = element.naturalHeight;
       let imageWidth;
-      if (realWidth > realHeight) {
+
+      if (realWidth >= realHeight) {
         imageWidth = level[numberOfGameScreen].questions.imagesSizes.width;
       } else {
         imageWidth = level[numberOfGameScreen].questions.imagesSizes.height * realWidth / realHeight;

@@ -45,7 +45,7 @@ const showNextScreen = () => {
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
     showScreen(gameThreeElement);
     centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-    makeAScreenTemplate(images, gameThreeElement, numberOfGameScreen);
+    makeAScreenTemplate(images, gameThreeElement, numberOfGameScreen, showNextScreen);
     showStatsScreen();
   }));
 };
