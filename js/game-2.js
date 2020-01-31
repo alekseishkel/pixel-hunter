@@ -1,9 +1,10 @@
 import {createDomElement, showScreen} from './util.js';
 import {gameThreeElement, showStatsScreen} from './game-3.js';
+import statsElement from './stats.js';
 import greetingElement from './greeting.js';
-import {headerElement, backArrow} from './header.js';
-import {level} from './data-structure.js';
-import {makeAScreenTemplate} from './screen.js';
+import {headerElement, subtractOneLife, onBackArrowClick} from './header.js';
+import {initialState, level, answersMap} from './data-structure.js';
+import makeAScreenTemplate from './screen.js';
 
 const template = `
   <div class="game">
@@ -43,6 +44,24 @@ const numberOfGameScreen = 2;
 const showNextScreen = () => {
   const gameAnswer = centralScreen.querySelectorAll(`.game__answer > input`);
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
+    const gameAnswerBackgroundImage = elem.nextElementSibling.currentStyle || window.getComputedStyle(elem.nextElementSibling, null);
+    const picture = elem.parentElement.parentElement.firstElementChild;
+
+    answersMap.set(elem.parentElement.parentElement.firstElementChild.src, {
+      answer: gameAnswerBackgroundImage.backgroundImage,
+      time: 10000
+    });
+
+    if (answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
+      subtractOneLife();
+      if (initialState.lives === 0) {
+        showNextScreen(statsElement);
+        // Запустить статистику со словом поражение, а пока победа
+      }
+    }
+
+    console.log(answersMap);
+
     showScreen(gameThreeElement);
     centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
     makeAScreenTemplate(images, gameThreeElement, numberOfGameScreen, showNextScreen);
@@ -50,8 +69,6 @@ const showNextScreen = () => {
   }));
 };
 
-backArrow.addEventListener(`click`, () => {
-  showScreen(greetingElement);
-});
+onBackArrowClick();
 
 export {element as gameTwoElement, showNextScreen};

@@ -1,8 +1,8 @@
 import {createDomElement, showScreen} from './util.js';
 import {gameOneElement, browseGameAnswers} from './game-1.js';
 import greetingElement from './greeting.js';
-import {headerElement, backArrow} from './header.js';
-import {makeAScreenTemplate} from './screen.js';
+import {headerElement, onBackArrowClick} from './header.js';
+import makeAScreenTemplate from './screen.js';
 import {level} from './data-structure.js';
 
 const template = `
@@ -54,10 +54,6 @@ goButton.addEventListener(`click`, (evt) => {
   makeAScreenTemplate(images, gameOneElement, numberOfGameScreen, browseGameAnswers);
 });
 
-backArrow.addEventListener(`click`, () => {
-  showScreen(greetingElement);
-});
-
 const userNameInput = element.querySelector(`.rules__input`);
 
 userNameInput.addEventListener(`keyup`, (evt) => {
@@ -68,6 +64,8 @@ userNameInput.addEventListener(`keyup`, (evt) => {
     goButton.disabled = true;
   }
 });
+
+onBackArrowClick();
 
 export {element as rulesElement};
 

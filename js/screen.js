@@ -63,4 +63,4 @@ const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, callback) => 
 
 };
 
-export {makeAScreenTemplate};
+export default makeAScreenTemplate;

@@ -1,9 +1,9 @@
-export const initialState = {
+const initialState = {
   lives: 3,
   time: 0
 };
 
-export const level = [
+const level = [
   {
     description: `Угадайте для каждого изображения фото или рисунок?`,
     questions: {
@@ -14,7 +14,7 @@ export const level = [
       },
       span: true
     },
-    answers: new Map([[`https://k42.kn3.net/CF42609C8.jpg`, `url(../img/photo_big.png)`], [`https://k42.kn3.net/D2F0370D6.jpg`, `url(../img/photo_big.png)`]]),
+    answers: new Map([[`https://k42.kn3.net/CF42609C8.jpg`, `url("http://127.0.0.1:5500/img/photo_big.png")`], [`https://k42.kn3.net/D2F0370D6.jpg`, `url("http://127.0.0.1:5500/img/photo_big.png")`]]),
   },
   {
     description: `Угадай, фото или рисунок?`,
@@ -26,7 +26,7 @@ export const level = [
       },
       span: true
     },
-    answers: new Map([[`https://k32.kn3.net/5C7060EC5.jpg`, `url(../img/paint_big.png)`]])
+    answers: new Map([[`https://k32.kn3.net/5C7060EC5.jpg`, `url("http://127.0.0.1:5500/img/paint_big.png")`]])
   },
   {
     description: `Найдите рисунок среди изображений`,
@@ -41,3 +41,7 @@ export const level = [
     answers: new Map([[`https://placekitten.com/600/500`, true]])
   }
 ];
+
+let answersMap = new Map();
+
+export {initialState, level, answersMap};

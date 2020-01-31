@@ -1,17 +1,13 @@
 import {createDomElement, showScreen} from './util.js';
 import greetingElement from './greeting.js';
+import {answersMap} from './data-structure.js';
+import {backArrow} from './header.js';
 
-const template = `
-  <header class="header">
-  <div class="header__back">
-    <span class="back">
-      <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-      <img src="img/logo_small.png" width="101" height="44">
-    </span>
-  </div>
-  </header>
+
+const statsTemplate = (result) => {
+  const template = `
   <div class="result">
-  <h1>Победа!</h1>
+  <h1>${result}</h1>
   <table class="result__table">
     <tr>
       <td class="result__number">1.</td>
@@ -120,13 +116,14 @@ const template = `
     <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
   </div>
   </footer>`;
+  return template;
+};
 
-const element = createDomElement(template);
-
-const backArrow = element.querySelector(`.back > img`);
+const element = createDomElement(statsTemplate());
 
 backArrow.addEventListener(`click`, () => {
   showScreen(greetingElement);
+  answersMap.clear();
 });
 
 export default element;

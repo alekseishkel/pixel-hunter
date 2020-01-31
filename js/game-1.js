@@ -1,9 +1,9 @@
 import {createDomElement, showScreen} from './util.js';
 import {gameTwoElement, showNextScreen} from './game-2.js';
-import greetingElement from './greeting.js';
-import {headerElement, backArrow} from './header.js';
-import {level} from './data-structure.js';
-import {makeAScreenTemplate} from './screen.js';
+import statsElement from './stats.js';
+import {headerElement, subtractOneLife, onBackArrowClick} from './header.js';
+import {initialState, level, answersMap} from './data-structure.js';
+import makeAScreenTemplate from './screen.js';
 
 const template = `
     <div class="game">
@@ -43,7 +43,25 @@ const numberOfGameScreen = 1;
 
 const browseGameAnswers = () => {
   const gameAnswer = centralScreen.querySelectorAll(`.game__answer > input`);
+
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
+    const gameAnswerBackgroundImage = elem.nextElementSibling.currentStyle || window.getComputedStyle(elem.nextElementSibling, null);
+    const picture = elem.parentElement.parentElement.firstElementChild;
+
+    answersMap.set(picture.src, {
+      answer: gameAnswerBackgroundImage.backgroundImage,
+      time: 10000
+    });
+
+    if (answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
+      subtractOneLife();
+      if (initialState.lives === 0) {
+        showNextScreen(statsElement);
+        // Запустить статистику со словом поражение, а пока победа
+      }
+    }
+
+    console.log(answersMap);
     if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
       showScreen(gameTwoElement);
       centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
@@ -52,8 +70,10 @@ const browseGameAnswers = () => {
   }));
 };
 
-backArrow.addEventListener(`click`, () => {
-  showScreen(greetingElement);
-});
+onBackArrowClick();
+// backArrow.addEventListener(`click`, () => {
+//   showScreen(greetingElement);
+//   refreshLifes();
+// });
 
 export {element as gameOneElement, browseGameAnswers};
