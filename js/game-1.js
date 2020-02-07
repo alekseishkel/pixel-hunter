@@ -1,9 +1,9 @@
-import {createDomElement, showScreen} from './util.js';
-import {gameTwoElement, showNextScreen} from './game-2.js';
-import statsElement from './stats.js';
-import {headerElement, subtractOneLife, onBackArrowClick} from './header.js';
-import {initialState, level, answersMap} from './data-structure.js';
+import {createDomElement, showScreen, removeGameElementWithoutHeader} from './util.js';
+import {gameTwoElement, activateSecondScreen} from './game-2.js';
+import {subtractOneLife, onBackArrowClick} from './header.js';
+import {level, answersMap} from './data-structure.js';
 import makeAScreenTemplate from './screen.js';
+import pasteAnswersIcon from './answer-icons.js';
 
 const template = `
     <div class="game">
@@ -41,39 +41,54 @@ const centralScreen = document.querySelector(`.central`);
 const images = Array.from(level[1].questions.images);
 const numberOfGameScreen = 1;
 
-const browseGameAnswers = () => {
+const activateScreen = () => {
   const gameAnswer = centralScreen.querySelectorAll(`.game__answer > input`);
+  let clickCounterForLeftPicture = 0;
+  let clickCounterForRightPicture = 0;
 
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
     const gameAnswerBackgroundImage = elem.nextElementSibling.currentStyle || window.getComputedStyle(elem.nextElementSibling, null);
     const picture = elem.parentElement.parentElement.firstElementChild;
+    let isCorrectAnswer;
 
     answersMap.set(picture.src, {
       answer: gameAnswerBackgroundImage.backgroundImage,
       time: 10000
     });
 
-    if (answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
-      subtractOneLife();
-      if (initialState.lives === 0) {
-        showNextScreen(statsElement);
-        // Запустить статистику со словом поражение, а пока победа
+    if (gameAnswer[0].checked || gameAnswer[1].checked) {
+      ++clickCounterForLeftPicture;
+      if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
+        // передается на каждый клик из-за clickCounterForLeftPicture === 1
+        subtractOneLife();
+        isCorrectAnswer = false;
+        pasteAnswersIcon(isCorrectAnswer);
+      } else if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
+        isCorrectAnswer = true;
+        pasteAnswersIcon(isCorrectAnswer);
       }
     }
 
-    console.log(answersMap);
+    if (gameAnswer[2].checked || gameAnswer[3].checked) {
+      ++clickCounterForRightPicture;
+      if (clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
+        subtractOneLife();
+        isCorrectAnswer = false;
+        pasteAnswersIcon(isCorrectAnswer);
+      } else if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
+        isCorrectAnswer = true;
+        pasteAnswersIcon(isCorrectAnswer);
+      }
+    }
+
     if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
+      removeGameElementWithoutHeader();
       showScreen(gameTwoElement);
-      centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-      makeAScreenTemplate(images, gameTwoElement, numberOfGameScreen, showNextScreen);
+      makeAScreenTemplate(images, gameTwoElement, numberOfGameScreen, activateSecondScreen);
     }
   }));
 };
 
 onBackArrowClick();
-// backArrow.addEventListener(`click`, () => {
-//   showScreen(greetingElement);
-//   refreshLifes();
-// });
 
-export {element as gameOneElement, browseGameAnswers};
+export {element as gameOneElement, activateScreen as activateFirstScreen};

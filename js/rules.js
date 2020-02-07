@@ -1,6 +1,5 @@
-import {createDomElement, showScreen} from './util.js';
-import {gameOneElement, browseGameAnswers} from './game-1.js';
-import greetingElement from './greeting.js';
+import {createDomElement, showScreen, removeGameElement} from './util.js';
+import {gameOneElement, activateFirstScreen} from './game-1.js';
 import {headerElement, onBackArrowClick} from './header.js';
 import makeAScreenTemplate from './screen.js';
 import {level} from './data-structure.js';
@@ -49,9 +48,10 @@ const numberOfGameScreen = 0;
 
 goButton.addEventListener(`click`, (evt) => {
   evt.preventDefault();
+  removeGameElement();
   showScreen(gameOneElement);
   centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-  makeAScreenTemplate(images, gameOneElement, numberOfGameScreen, browseGameAnswers);
+  makeAScreenTemplate(images, gameOneElement, numberOfGameScreen, activateFirstScreen);
 });
 
 const userNameInput = element.querySelector(`.rules__input`);

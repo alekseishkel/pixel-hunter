@@ -1,8 +1,7 @@
-import {createDomElement, showScreen} from './util.js';
-import {gameThreeElement, showStatsScreen} from './game-3.js';
+import {createDomElement, showScreen, removeGameElementWithoutHeader} from './util.js';
+import {gameThreeElement, activateThirdScreen} from './game-3.js';
 import statsElement from './stats.js';
-import greetingElement from './greeting.js';
-import {headerElement, subtractOneLife, onBackArrowClick} from './header.js';
+import {subtractOneLife, onBackArrowClick} from './header.js';
 import {initialState, level, answersMap} from './data-structure.js';
 import makeAScreenTemplate from './screen.js';
 
@@ -41,7 +40,7 @@ const centralScreen = document.querySelector(`.central`);
 const images = Array.from(level[2].questions.images);
 const numberOfGameScreen = 2;
 
-const showNextScreen = () => {
+const activateScreen = () => {
   const gameAnswer = centralScreen.querySelectorAll(`.game__answer > input`);
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
     const gameAnswerBackgroundImage = elem.nextElementSibling.currentStyle || window.getComputedStyle(elem.nextElementSibling, null);
@@ -54,21 +53,20 @@ const showNextScreen = () => {
 
     if (answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
       subtractOneLife();
-      if (initialState.lives === 0) {
-        showNextScreen(statsElement);
-        // Запустить статистику со словом поражение, а пока победа
-      }
     }
 
-    console.log(answersMap);
-
-    showScreen(gameThreeElement);
-    centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-    makeAScreenTemplate(images, gameThreeElement, numberOfGameScreen, showNextScreen);
-    showStatsScreen();
+    if (initialState.lives === 0) {
+      removeGameElementWithoutHeader();
+      showScreen(statsElement);
+      // Запустить статистику со словом поражение, а пока победа
+    } else {
+      removeGameElementWithoutHeader();
+      showScreen(gameThreeElement);
+      makeAScreenTemplate(images, gameThreeElement, numberOfGameScreen, activateThirdScreen);
+    }
   }));
 };
 
 onBackArrowClick();
 
-export {element as gameTwoElement, showNextScreen};
+export {element as gameTwoElement, activateScreen as activateSecondScreen};

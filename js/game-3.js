@@ -1,8 +1,7 @@
-import {createDomElement, showScreen} from './util.js';
+import {createDomElement, showScreen, removeGameElementWithoutHeader} from './util.js';
 import statsElement from './stats.js';
-import greetingElement from './greeting.js';
-import {headerElement, subtractOneLife, onBackArrowClick} from './header.js';
-import {initialState, level, answersMap} from './data-structure.js';
+import {subtractOneLife, onBackArrowClick} from './header.js';
+import {level, answersMap} from './data-structure.js';
 
 const template = `
   <div class="game">
@@ -39,7 +38,7 @@ const element = createDomElement(template);
 const centralScreen = document.querySelector(`.central`);
 const numberOfGameScreen = 3;
 
-const showNextScreen = () => {
+const activateScreen = () => {
   const gameAnswer = centralScreen.querySelectorAll(`.game__option`);
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
     if (level[numberOfGameScreen - 1].answers.get(elem.firstElementChild.src)) {
@@ -52,23 +51,14 @@ const showNextScreen = () => {
         answer: false,
         time: 10000
       });
-    }
-
-    if (answersMap.get(elem.firstElementChild.src).answer !== level[numberOfGameScreen - 1].answers.get(elem.firstElementChild.src)) {
       subtractOneLife();
-      if (initialState.lives === 0) {
-        showNextScreen(statsElement);
-        // Запустить статистику со словом поражение, а пока победа
-      }
     }
 
-    console.log(answersMap);
-
+    removeGameElementWithoutHeader();
     showScreen(statsElement);
-    centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
   }));
 };
 
 onBackArrowClick();
 
-export {element as gameThreeElement, showNextScreen as showStatsScreen};
+export {element as gameThreeElement, activateScreen as activateThirdScreen};

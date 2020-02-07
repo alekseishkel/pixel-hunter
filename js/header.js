@@ -1,7 +1,6 @@
-import {createDomElement} from './util.js';
+import {createDomElement, showScreen, removeGameElement} from './util.js';
 import {initialState} from './data-structure.js';
 import greetingElement from './greeting.js';
-import {showScreen} from './util.js';
 
 const headerTemplate = (state) => `
   <header class="header">
@@ -28,24 +27,19 @@ const subtractOneLife = () => {
   lifes[clicksCounter].src = `img/heart__empty.svg`;
   ++clicksCounter;
   --initialState.lives;
-  console.log(initialState.lives);
-};
-
-const refreshLifes = () => {
-  initialState.lives = 3;
-  lifes.forEach((elem) => {
-    elem.src = `img/heart__full.svg`;
-    // отнимается жизнь, если много раз нажать на ответ
-  });
 };
 
 const onBackArrowClick = () => {
   backArrow.addEventListener(`click`, () => {
+    removeGameElement();
     showScreen(greetingElement);
-    refreshLifes();
+    initialState.lives = 3;
+    lifes.forEach((elem) => {
+      elem.src = `img/heart__full.svg`;
+    });
     clicksCounter = 0;
   });
 };
 
 
-export {headerElement, backArrow, subtractOneLife, refreshLifes, onBackArrowClick};
+export {headerElement, backArrow, subtractOneLife, onBackArrowClick};

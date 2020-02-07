@@ -1,31 +1,4 @@
-const INITIAL_GAME = {
-  level: 0,
-  lives: 3,
-  time: 0
-};
-
-const userAnswers = [
-  {
-    answer: true,
-    time: 4000
-  },
-  {
-    answer: true,
-    time: 3000
-  },
-  {
-    answer: true,
-    time: 16000
-  },
-  {
-    answer: true,
-    time: 11000
-  },
-  {
-    answer: false,
-    time: 9000
-  },
-];
+import {initialState} from './data-structure.js';
 
 const POINTS_COUNT = {
   trueAnswerScore: 100,
@@ -108,7 +81,7 @@ const countLives = (answers) => {
     }
 
     if (!el.answer) {
-      userLives = INITIAL_GAME.lives - 1;
+      userLives = initialState.lives - 1;
     }
   });
 
@@ -121,8 +94,6 @@ const countLives = (answers) => {
 
 module.exports = {
   changeLevel,
-  INITIAL_GAME,
-  userAnswers,
   countScore,
   countLives
 };

@@ -1,6 +1,6 @@
 import {level} from './data-structure.js';
 
-const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, callback) => {
+const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, activateNextScreen) => {
   let screenTemplate;
   const gameContent = gameElement.querySelector(`.game__content`);
 
@@ -59,8 +59,7 @@ const makeAScreenTemplate = (arr, gameElement, numberOfGameScreen, callback) => 
     };
   });
 
-  callback();
-
+  activateNextScreen();
 };
 
 export default makeAScreenTemplate;
