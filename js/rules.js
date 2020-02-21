@@ -1,18 +1,10 @@
-import {createDomElement, showScreen, removeGameElement} from './util.js';
+import {createDomElement, showScreen, removeScreen} from './util.js';
 import {gameOneElement, activateFirstScreen} from './game-1.js';
-import {headerElement, onBackArrowClick} from './header.js';
+import {headerElement} from './header.js';
 import makeAScreenTemplate from './screen.js';
 import {level} from './data-structure.js';
 
 const template = `
-  <header class="header">
-    <div class="header__back">
-      <span class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.png" width="101" height="44">
-      </span>
-    </div>
-  </header>
   <div class="rules">
     <h1 class="rules__title">Правила</h1>
     <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
@@ -48,10 +40,10 @@ const numberOfGameScreen = 0;
 
 goButton.addEventListener(`click`, (evt) => {
   evt.preventDefault();
-  removeGameElement();
+  removeScreen();
   showScreen(gameOneElement);
   centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
-  makeAScreenTemplate(images, gameOneElement, numberOfGameScreen, activateFirstScreen);
+  makeAScreenTemplate(images, numberOfGameScreen, activateFirstScreen);
 });
 
 const userNameInput = element.querySelector(`.rules__input`);
@@ -64,8 +56,6 @@ userNameInput.addEventListener(`keyup`, (evt) => {
     goButton.disabled = true;
   }
 });
-
-onBackArrowClick();
 
 export {element as rulesElement};
 

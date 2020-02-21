@@ -1,9 +1,9 @@
-import {showScreen, removeGameElement} from './util.js';
+import {showScreen, removeScreen} from './util.js';
 import greetingElement from './greeting.js';
 
 const asterisk = document.querySelector(`.intro__asterisk`);
 
 asterisk.addEventListener(`click`, () => {
-  removeGameElement();
+  removeScreen();
   showScreen(greetingElement);
 });

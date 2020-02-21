@@ -1,23 +1,17 @@
-import {createDomElement, showScreen, removeGameElementWithoutHeader} from './util.js';
-import {gameTwoElement, activateSecondScreen} from './game-2.js';
-import {subtractOneLife, onBackArrowClick} from './header.js';
+import {createDomElement} from './util.js';
+import {activateSecondScreen} from './game-2.js';
+import {subtractOneLife} from './header.js';
 import {level, answersMap} from './data-structure.js';
 import makeAScreenTemplate from './screen.js';
-import pasteAnswersIcon from './answer-icons.js';
+import {gameResult} from './game-result.js';
 
 const template = `
-    <div class="game">
-    <p class="game__task">${level[0].description}</p>
+  <div class="game">
+    <p class="game__task"></p>
     <form class="game__content">
     </form>
     <div class="stats">
       <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--unknown"></li>
         <li class="stats__result stats__result--unknown"></li>
         <li class="stats__result stats__result--unknown"></li>
         <li class="stats__result stats__result--unknown"></li>
@@ -40,32 +34,31 @@ const element = createDomElement(template);
 const centralScreen = document.querySelector(`.central`);
 const images = Array.from(level[1].questions.images);
 const numberOfGameScreen = 1;
+let picture;
 
 const activateScreen = () => {
   const gameAnswer = centralScreen.querySelectorAll(`.game__answer > input`);
   let clickCounterForLeftPicture = 0;
   let clickCounterForRightPicture = 0;
-
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
     const gameAnswerBackgroundImage = elem.nextElementSibling.currentStyle || window.getComputedStyle(elem.nextElementSibling, null);
-    const picture = elem.parentElement.parentElement.firstElementChild;
+    picture = elem.parentElement.parentElement.firstElementChild;
     let isCorrectAnswer;
 
     answersMap.set(picture.src, {
       answer: gameAnswerBackgroundImage.backgroundImage,
-      time: 10000
+      time: 2000
     });
 
     if (gameAnswer[0].checked || gameAnswer[1].checked) {
       ++clickCounterForLeftPicture;
       if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
-        // передается на каждый клик из-за clickCounterForLeftPicture === 1
         subtractOneLife();
         isCorrectAnswer = false;
-        pasteAnswersIcon(isCorrectAnswer);
+        gameResult(isCorrectAnswer, picture);
       } else if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
         isCorrectAnswer = true;
-        pasteAnswersIcon(isCorrectAnswer);
+        gameResult(isCorrectAnswer, picture);
       }
     }
 
@@ -74,21 +67,17 @@ const activateScreen = () => {
       if (clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
         subtractOneLife();
         isCorrectAnswer = false;
-        pasteAnswersIcon(isCorrectAnswer);
-      } else if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
+        gameResult(isCorrectAnswer, picture);
+      } else if (clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
         isCorrectAnswer = true;
-        pasteAnswersIcon(isCorrectAnswer);
+        gameResult(isCorrectAnswer, picture);
       }
     }
 
     if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
-      removeGameElementWithoutHeader();
-      showScreen(gameTwoElement);
-      makeAScreenTemplate(images, gameTwoElement, numberOfGameScreen, activateSecondScreen);
+      makeAScreenTemplate(images, numberOfGameScreen, activateSecondScreen);
     }
   }));
 };
 
-onBackArrowClick();
-
-export {element as gameOneElement, activateScreen as activateFirstScreen};
+export {element as gameOneElement, activateScreen as activateFirstScreen, picture as pictureOne};

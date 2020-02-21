@@ -1,5 +1,5 @@
-import {createDomElement, showScreen, removeGameElement} from './util.js';
-import {initialState} from './data-structure.js';
+import {createDomElement, showScreen, removeScreen} from './util.js';
+import {initialState, answersMap} from './data-structure.js';
 import greetingElement from './greeting.js';
 
 const headerTemplate = (state) => `
@@ -29,17 +29,26 @@ const subtractOneLife = () => {
   --initialState.lives;
 };
 
-const onBackArrowClick = () => {
-  backArrow.addEventListener(`click`, () => {
-    removeGameElement();
-    showScreen(greetingElement);
-    initialState.lives = 3;
-    lifes.forEach((elem) => {
-      elem.src = `img/heart__full.svg`;
-    });
-    clicksCounter = 0;
+backArrow.addEventListener(`click`, () => {
+  const statsInGameScreen = document.querySelectorAll(`ul.stats > .stats__result`);
+  console.log(statsInGameScreen);
+
+  initialState.lives = 3;
+  clicksCounter = 0;
+
+  answersMap.clear();
+
+  lifes.forEach((elem) => {
+    elem.src = `img/heart__full.svg`;
   });
-};
+
+  statsInGameScreen.forEach((elem) => {
+    elem.className = `stats__result stats__result--unknown`;
+  });
+
+  removeScreen();
+  showScreen(greetingElement);
+});
 
 
-export {headerElement, backArrow, subtractOneLife, onBackArrowClick};
+export {headerElement, backArrow, subtractOneLife};

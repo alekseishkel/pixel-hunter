@@ -1,72 +1,43 @@
-import {createDomElement, showScreen, removeGameElementWithoutHeader} from './util.js';
-import {gameThreeElement, activateThirdScreen} from './game-3.js';
+import {activateThirdScreen} from './game-3.js';
 import statsElement from './stats.js';
-import {subtractOneLife, onBackArrowClick} from './header.js';
+import {subtractOneLife} from './header.js';
 import {initialState, level, answersMap} from './data-structure.js';
 import makeAScreenTemplate from './screen.js';
+import {showScreen, removeGameElement} from './util.js';
+import {gameResult} from './game-result.js';
+import {pictureOne} from './game-1.js';
 
-const template = `
-  <div class="game">
-    <p class="game__task">${level[1].description}</p>
-    <form class="game__content  game__content--wide">
-    </form>
-    <div class="stats">
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--unknown"></li>
-      </ul>
-    </div>
-  </div>
-  <footer class="footer">
-    <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
-    <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a> &copy; 2016</span>
-    <div class="footer__social-links">
-      <a href="https://twitter.com/htmlacademy_ru" class="social-link  social-link--tw">Твиттер</a>
-      <a href="https://www.instagram.com/htmlacademy/" class="social-link  social-link--ins">Инстаграм</a>
-      <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
-      <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
-    </div>
-`;
-const element = createDomElement(template);
-const centralScreen = document.querySelector(`.central`);
 const images = Array.from(level[2].questions.images);
 const numberOfGameScreen = 2;
 
 const activateScreen = () => {
-  const gameAnswer = centralScreen.querySelectorAll(`.game__answer > input`);
+  const gameAnswer = document.querySelectorAll(`.game__answer > input`);
   gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
     const gameAnswerBackgroundImage = elem.nextElementSibling.currentStyle || window.getComputedStyle(elem.nextElementSibling, null);
     const picture = elem.parentElement.parentElement.firstElementChild;
+    let isCorrectAnswer;
 
-    answersMap.set(elem.parentElement.parentElement.firstElementChild.src, {
+    answersMap.set(picture.src, {
       answer: gameAnswerBackgroundImage.backgroundImage,
-      time: 10000
+      time: 15000
     });
 
     if (answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
       subtractOneLife();
+      isCorrectAnswer = false;
+      gameResult(isCorrectAnswer, picture);
+    } else {
+      isCorrectAnswer = true;
+      gameResult(isCorrectAnswer, picture);
     }
 
     if (initialState.lives === 0) {
-      removeGameElementWithoutHeader();
-      showScreen(statsElement);
-      // Запустить статистику со словом поражение, а пока победа
+      removeGameElement();
+      showScreen(statsElement, picture);
     } else {
-      removeGameElementWithoutHeader();
-      showScreen(gameThreeElement);
-      makeAScreenTemplate(images, gameThreeElement, numberOfGameScreen, activateThirdScreen);
+      makeAScreenTemplate(images, numberOfGameScreen, activateThirdScreen);
     }
   }));
 };
 
-onBackArrowClick();
-
-export {element as gameTwoElement, activateScreen as activateSecondScreen};
+export {activateScreen as activateSecondScreen};

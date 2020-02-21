@@ -1,13 +1,5 @@
 import {initialState} from './data-structure.js';
-
-const POINTS_COUNT = {
-  trueAnswerScore: 100,
-  fastAnswerScore: 50,
-  slowAnswerScore: 50,
-  oneLiveScore: 50,
-  slowSpeed: 15000,
-  fastSpeed: 5000
-};
+import {POINTS_COUNT} from './game-result';
 
 const changeLevel = (game, level) => {
   if (level < 0) {
@@ -97,4 +89,3 @@ module.exports = {
   countScore,
   countLives
 };
-

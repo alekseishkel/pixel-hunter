@@ -1,4 +1,4 @@
-import {createDomElement, showScreen, removeGameElement} from './util.js';
+import {createDomElement, showScreen, removeScreen} from './util.js';
 import {rulesElement} from './rules.js';
 
 const template = `
@@ -31,7 +31,7 @@ const element = createDomElement(template);
 const arrow = element.querySelector(`.greeting__continue > span > img`);
 
 arrow.addEventListener(`click`, () => {
-  removeGameElement();
+  removeScreen();
   showScreen(rulesElement);
 });
 
