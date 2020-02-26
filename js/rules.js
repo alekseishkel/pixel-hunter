@@ -1,6 +1,6 @@
 import {createDomElement, showScreen, removeScreen} from './util.js';
-import {gameOneElement, activateFirstScreen} from './game-1.js';
 import {headerElement} from './header.js';
+import {gameOneElement, activateFirstScreen} from './game-1.js';
 import makeAScreenTemplate from './screen.js';
 import {level} from './data-structure.js';
 

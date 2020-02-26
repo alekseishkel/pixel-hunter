@@ -1,8 +1,8 @@
 import {createDomElement} from './util.js';
-import {activateSecondScreen} from './game-2.js';
 import {subtractOneLife} from './header.js';
-import {level, answersMap} from './data-structure.js';
+import {activateSecondScreen} from './game-2.js';
 import makeAScreenTemplate from './screen.js';
+import {level, answersMap} from './data-structure.js';
 import {gameResult} from './game-result.js';
 
 const template = `
@@ -44,6 +44,7 @@ const activateScreen = () => {
     const gameAnswerBackgroundImage = elem.nextElementSibling.currentStyle || window.getComputedStyle(elem.nextElementSibling, null);
     picture = elem.parentElement.parentElement.firstElementChild;
     let isCorrectAnswer;
+    let showStats = false;
 
     answersMap.set(picture.src, {
       answer: gameAnswerBackgroundImage.backgroundImage,
@@ -55,10 +56,10 @@ const activateScreen = () => {
       if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
         subtractOneLife();
         isCorrectAnswer = false;
-        gameResult(isCorrectAnswer, picture);
+        gameResult(showStats, isCorrectAnswer, picture);
       } else if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
         isCorrectAnswer = true;
-        gameResult(isCorrectAnswer, picture);
+        gameResult(showStats, isCorrectAnswer, picture);
       }
     }
 
@@ -67,10 +68,10 @@ const activateScreen = () => {
       if (clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
         subtractOneLife();
         isCorrectAnswer = false;
-        gameResult(isCorrectAnswer, picture);
+        gameResult(showStats, isCorrectAnswer, picture);
       } else if (clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
         isCorrectAnswer = true;
-        gameResult(isCorrectAnswer, picture);
+        gameResult(showStats, isCorrectAnswer, picture);
       }
     }
 
@@ -80,4 +81,4 @@ const activateScreen = () => {
   }));
 };
 
-export {element as gameOneElement, activateScreen as activateFirstScreen, picture as pictureOne};
+export {element as gameOneElement, activateScreen as activateFirstScreen};

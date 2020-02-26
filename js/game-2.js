@@ -1,11 +1,8 @@
-import {activateThirdScreen} from './game-3.js';
-import statsElement from './stats.js';
 import {subtractOneLife} from './header.js';
-import {initialState, level, answersMap} from './data-structure.js';
+import {activateThirdScreen} from './game-3.js';
 import makeAScreenTemplate from './screen.js';
-import {showScreen, removeGameElement} from './util.js';
+import {initialState, level, answersMap} from './data-structure.js';
 import {gameResult} from './game-result.js';
-import {pictureOne} from './game-1.js';
 
 const images = Array.from(level[2].questions.images);
 const numberOfGameScreen = 2;
@@ -16,6 +13,7 @@ const activateScreen = () => {
     const gameAnswerBackgroundImage = elem.nextElementSibling.currentStyle || window.getComputedStyle(elem.nextElementSibling, null);
     const picture = elem.parentElement.parentElement.firstElementChild;
     let isCorrectAnswer;
+    let showStats;
 
     answersMap.set(picture.src, {
       answer: gameAnswerBackgroundImage.backgroundImage,
@@ -25,15 +23,17 @@ const activateScreen = () => {
     if (answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
       subtractOneLife();
       isCorrectAnswer = false;
-      gameResult(isCorrectAnswer, picture);
+      showStats = false;
+      gameResult(showStats, isCorrectAnswer, picture);
     } else {
       isCorrectAnswer = true;
-      gameResult(isCorrectAnswer, picture);
+      showStats = false;
+      gameResult(showStats, isCorrectAnswer, picture);
     }
 
     if (initialState.lives === 0) {
-      removeGameElement();
-      showScreen(statsElement, picture);
+      showStats = true;
+      gameResult(true);
     } else {
       makeAScreenTemplate(images, numberOfGameScreen, activateThirdScreen);
     }

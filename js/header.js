@@ -1,6 +1,7 @@
 import {createDomElement, showScreen, removeScreen} from './util.js';
-import {initialState, answersMap} from './data-structure.js';
 import greetingElement from './greeting.js';
+import {initialState, answersMap} from './data-structure.js';
+import {POINTS_COUNT} from './game-result.js';
 
 const headerTemplate = (state) => `
   <header class="header">
@@ -17,7 +18,6 @@ const headerTemplate = (state) => `
     </div>
   </header>`;
 
-
 const headerElement = createDomElement(headerTemplate(initialState));
 const backArrow = headerElement.querySelector(`.back > img`);
 const lifes = headerElement.querySelectorAll(`.game__lives > img`);
@@ -31,10 +31,18 @@ const subtractOneLife = () => {
 
 backArrow.addEventListener(`click`, () => {
   const statsInGameScreen = document.querySelectorAll(`ul.stats > .stats__result`);
-  console.log(statsInGameScreen);
 
   initialState.lives = 3;
   clicksCounter = 0;
+
+  POINTS_COUNT.scores.points = 0;
+  POINTS_COUNT.trueAnswer.points = 0;
+  POINTS_COUNT.trueAnswer.count = 0;
+  POINTS_COUNT.fastAnswer.points = 0;
+  POINTS_COUNT.fastAnswer.count = 0;
+  POINTS_COUNT.slowAnswer.points = 0;
+  POINTS_COUNT.slowAnswer.count = 0;
+  POINTS_COUNT.oneLive.points = 0;
 
   answersMap.clear();
 
