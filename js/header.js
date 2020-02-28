@@ -1,7 +1,7 @@
 import {createDomElement, showScreen, removeScreen} from './util.js';
 import greetingElement from './greeting.js';
 import {initialState, answersMap} from './data-structure.js';
-import {POINTS_COUNT} from './game-result.js';
+import {pointsCount} from './game-result.js';
 
 const headerTemplate = (state) => `
   <header class="header">
@@ -35,14 +35,14 @@ backArrow.addEventListener(`click`, () => {
   initialState.lives = 3;
   clicksCounter = 0;
 
-  POINTS_COUNT.scores.points = 0;
-  POINTS_COUNT.trueAnswer.points = 0;
-  POINTS_COUNT.trueAnswer.count = 0;
-  POINTS_COUNT.fastAnswer.points = 0;
-  POINTS_COUNT.fastAnswer.count = 0;
-  POINTS_COUNT.slowAnswer.points = 0;
-  POINTS_COUNT.slowAnswer.count = 0;
-  POINTS_COUNT.oneLive.points = 0;
+  pointsCount.scores.points = 0;
+  pointsCount.trueAnswer.points = 0;
+  pointsCount.trueAnswer.count = 0;
+  pointsCount.fastAnswer.points = 0;
+  pointsCount.fastAnswer.count = 0;
+  pointsCount.slowAnswer.points = 0;
+  pointsCount.slowAnswer.count = 0;
+  pointsCount.oneLive.points = 0;
 
   answersMap.clear();
 
