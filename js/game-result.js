@@ -59,6 +59,7 @@ const gameResult = (showStats, answer, screenPicture) => {
     } else {
       statsIconInGameScreen.className = `stats__result stats__result--correct`;
     }
+
   } else if (answer === false) {
     statsIconInGameScreen.className = `stats__result stats__result--wrong`;
   }

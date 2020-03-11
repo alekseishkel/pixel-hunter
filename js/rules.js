@@ -36,6 +36,7 @@ const element = createDomElement(template);
 const images = Array.from(level[0].questions.images);
 const goButton = element.querySelector(`.rules__button`);
 const centralScreen = document.querySelector(`.central`);
+const userNameInput = element.querySelector(`.rules__input`);
 const numberOfGameScreen = 0;
 
 goButton.addEventListener(`click`, (evt) => {
@@ -45,8 +46,6 @@ goButton.addEventListener(`click`, (evt) => {
   centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
   makeAScreenTemplate(images, numberOfGameScreen, activateFirstScreen);
 });
-
-const userNameInput = element.querySelector(`.rules__input`);
 
 userNameInput.addEventListener(`keyup`, (evt) => {
   if (!userNameInput.validity.valueMissing && userNameInput.validity.patternMismatch) {
