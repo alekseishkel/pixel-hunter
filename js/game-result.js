@@ -1,6 +1,6 @@
 import {answersMap} from './data-structure.js';
-import showStatsScreen from './stats.js';
 import {initialState} from './data-structure.js';
+import showStatsScreen from './stats.js';
 import {removeGameElement} from './util.js';
 
 const POINTS_SCORE = {

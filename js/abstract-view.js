@@ -11,10 +11,16 @@ export default class AbstracrtView {
     throw new Error(`Template is required`);
   }
 
-  render(template) {
+  render() {
     const wrapper = document.createElement(`div`);
-    wrapper.insertAdjacentHTML(`afterbegin`, template);
-    return wrapper;
+    const fragment = document.createDocumentFragment();
+
+    wrapper.insertAdjacentHTML(`afterbegin`, this.template);
+    wrapper.childNodes.forEach((element) => {
+      fragment.appendChild(element);
+    });
+
+    return fragment;
   }
 
   bind(element) {
@@ -22,11 +28,11 @@ export default class AbstracrtView {
   }
 
   get element() {
-    if (this.element) {
-      return this.element;
+    if (this._element) {
+      return this._element;
     }
-    this.element = this.render();
+    this._element = this.render();
     this.bind(this._element);
-    return this.element;
+    return this._element;
   }
 }
