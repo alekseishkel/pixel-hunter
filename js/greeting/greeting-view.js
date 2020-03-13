@@ -1,7 +1,7 @@
-import {createDomElement, showScreen, removeScreen} from './util.js';
-import {rulesElement} from './rules.js';
+import {createDomElement, showScreen, removeScreen} from '../util.js';
+// import {rulesElement} from '../rules/rules-view.js';
 // import {level as levelData} from './data-structure.js';
-import AbstractView from './abstract-view.js';
+import AbstractView from '../abstract-view.js';
 
 class GreetingView extends AbstractView {
   get template() {

@@ -1,4 +1,4 @@
-import {createDomElement} from './util.js';
+import {createDomElement} from '../util.js';
 
 const template = `<footer class="footer">
   <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>

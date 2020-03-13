@@ -1,5 +1,5 @@
 import {createDomElement} from './util.js';
-import footer from './footer.js';
+import footer from './footer/footer.js';
 
 export default class AbstracrtView {
   constructor() {

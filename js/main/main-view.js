@@ -1,6 +1,6 @@
 import AbstractView from './../abstract-view.js';
 
-class MainView extends AbstractView {
+export default class MainView extends AbstractView {
   get template() {
     return `<main class="central">
     <div id="main" class="central__content">
@@ -16,16 +16,13 @@ class MainView extends AbstractView {
   bind() {
     const asterisk = this.element.querySelector(`.intro__asterisk`);
 
-    asterisk.addEventListener(`click`, () => {
-      this.onClick();
-    });
+    asterisk.addEventListener(`click`, this.onClick);
   }
 
   onClick() {
-
+    console.log(`1`);
   }
 }
-
 const mainView = new MainView();
 
 const centralScreen = document.querySelector(`.central`);
