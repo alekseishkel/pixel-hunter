@@ -1,4 +1,5 @@
 import {createDomElement} from './util.js';
+import footer from './footer.js';
 
 export default class AbstracrtView {
   constructor() {
@@ -18,6 +19,7 @@ export default class AbstracrtView {
     wrapper.insertAdjacentHTML(`afterbegin`, this.template);
     wrapper.childNodes.forEach((element) => {
       fragment.appendChild(element);
+      fragment.appendChild(footer);
     });
 
     return fragment;

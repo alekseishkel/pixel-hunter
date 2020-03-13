@@ -7,7 +7,7 @@ const createDomElement = (template) => {
 };
 
 const showScreen = (element) => {
-  centralScreen.insertAdjacentElement(`beforeend`, element);
+  centralScreen.appendChild(element);
 };
 
 const removeScreen = () => {
