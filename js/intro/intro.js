@@ -1,24 +1,11 @@
-import {showScreen, removeScreen} from './../util.js';
+import {showScreen, removeScreen} from '../util.js';
 import IntroView from './intro-view.js';
-import greetengView from './../greeting/greeting-view.js';
+import greetingView from './../greeting/greeting.js';
 
-// export default class Main extends IntroView {
-//   constructor() {
-//     super();
-//   }
-
-//   onClick() {
-//     console.log(`2`);
-//     removeScreen();
-//     showScreen(greetengView);
-//   }
-// }
-const intro = new IntroView();
-
-intro.onClick = () => {
+const introView = new IntroView();
+introView.onClick = () => {
   removeScreen();
-  showScreen(greetengView);
+  showScreen(greetingView.element);
 };
 
-console.log(intro.onClick);
-
+showScreen(introView.element);

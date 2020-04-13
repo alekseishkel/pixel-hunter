@@ -1,6 +1,3 @@
-import {createDomElement} from './util.js';
-import footer from './footer/footer.js';
-
 export default class AbstracrtView {
   constructor() {
     if (new.target === AbstracrtView) {
@@ -14,15 +11,14 @@ export default class AbstracrtView {
 
   render() {
     const wrapper = document.createElement(`div`);
-    const fragment = document.createDocumentFragment();
+    // const fragment = document.createDocumentFragment();
 
     wrapper.insertAdjacentHTML(`afterbegin`, this.template);
-    wrapper.childNodes.forEach((element) => {
-      fragment.appendChild(element);
-      fragment.appendChild(footer);
-    });
+    // wrapper.childNodes.forEach((element) => {
+    //   fragment.appendChild(element);
+    // });
 
-    return fragment;
+    return wrapper;
   }
 
   bind(element) {

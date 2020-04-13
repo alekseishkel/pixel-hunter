@@ -1,35 +1,23 @@
-import {createDomElement, showScreen, removeScreen} from './util.js';
-import greetingElement from './greeting.js';
-import {initialState, answersMap} from './data-structure.js';
-import {pointsCount} from './game-result.js';
+import {showScreen, removeScreen, removeGameElement} from '../util.js';
+import HeaderView from './header-view.js';
+import greetingView from './../greeting/greeting.js';
+import GreetingView from './../greeting/greeting-view.js';
+import {initialState, answersMap} from '../data-structure.js';
+import {pointsCount} from '../game-result.js';
+import gameOneView from '../game-1/game-1.js';
 
-const headerTemplate = (state) => `
-  <header class="header">
-    <div class="header__back">
-      <span class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.png" width="101" height="44">
-      </span>
-    </div>
-    <h1 class="game__timer">${state.time}</h1>
-    <div class="game__lives">
-      ${new Array(3 - state.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
-      ${new Array(state.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
-    </div>
-  </header>`;
-
-const headerElement = createDomElement(headerTemplate(initialState));
-const backArrow = headerElement.querySelector(`.back > img`);
-const lifes = headerElement.querySelectorAll(`.game__lives > img`);
+const headerView = new HeaderView(initialState);
+const grView = new GreetingView();
+const lifes = headerView.element.querySelectorAll(`.game__lives > img`);
 let clicksCounter = 0;
 
-const subtractOneLife = () => {
+headerView.subtractOneLife = () => {
   lifes[clicksCounter].src = `img/heart__empty.svg`;
   ++clicksCounter;
   --initialState.lives;
 };
 
-backArrow.addEventListener(`click`, () => {
+headerView.onClick = () => {
   const statsInGameScreen = document.querySelectorAll(`ul.stats > .stats__result`);
 
   initialState.lives = 3;
@@ -55,8 +43,7 @@ backArrow.addEventListener(`click`, () => {
   });
 
   removeScreen();
-  showScreen(greetingElement);
-});
+  showScreen(grView.element);
+};
 
-
-export {headerElement, backArrow, subtractOneLife};
+export default headerView;

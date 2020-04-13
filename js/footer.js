@@ -1,5 +1,3 @@
-import {createDomElement} from '../util.js';
-
 const template = `<footer class="footer">
   <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>
   <span class="footer__made-in">Сделано в <a href="https://htmlacademy.ru" class="footer__link">HTML Academy</a>
@@ -12,6 +10,4 @@ const template = `<footer class="footer">
   </div>
 </footer>`;
 
-const element = createDomElement(template);
-
-export default element;
+export default template;

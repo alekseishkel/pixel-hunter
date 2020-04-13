@@ -1,6 +1,6 @@
-import {createDomElement, showScreen} from './util.js';
-import {initialState} from './data-structure.js';
-import {POINTS_SCORE} from './game-result.js';
+import {createDomElement, showScreen} from '../util.js';
+import {initialState} from '../data-structure.js';
+import {POINTS_SCORE} from '../game-result.js';
 
 const showStatsScreen = (result, POINTS_COUNT) => {
   const template = `
