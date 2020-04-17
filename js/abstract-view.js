@@ -13,11 +13,12 @@ export default class AbstracrtView {
     const wrapper = document.createElement(`div`);
     // const fragment = document.createDocumentFragment();
 
+
     wrapper.insertAdjacentHTML(`afterbegin`, this.template);
     // wrapper.childNodes.forEach((element) => {
     //   fragment.appendChild(element);
     // });
-
+    console.log(wrapper);
     return wrapper;
   }
 

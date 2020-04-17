@@ -16,22 +16,26 @@ const createDomElement = (template) => {
 };
 
 const showScreen = (element, headerElement) => {
-  console.log(element, headerElement);
-  if (centralScreen.firstElementChild) {
-    element.childNodes.forEach((node) => {
-      centralScreen.prepend(node);
-    });
+  // if (centralScreen.firstElementChild) {
+  //   element.childNodes.forEach((node) => {
+  //     centralScreen.prepend(node);
+  //   });
 
-    if (headerElement) {
-      headerElement.childNodes.forEach((node) => {
-        centralScreen.prepend(node);
-      });
-    }
+  //   if (headerElement) {
+  //     headerElement.childNodes.forEach((node) => {
+  //       centralScreen.prepend(node);
+  //     });
+  //   }
 
-  } else {
-    element.childNodes.forEach((node) => {
-      centralScreen.appendChild(node);
-    });
+  // } else {
+  //   element.childNodes.forEach((node) => {
+  //     centralScreen.appendChild(node);
+  //   });
+  // }
+  centralScreen.appendChild(element);
+
+  if (headerElement) {
+    centralScreen.appendChild(headerElement);
   }
 
 };

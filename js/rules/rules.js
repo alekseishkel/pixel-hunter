@@ -4,7 +4,7 @@ import RulesView from './rules-view.js';
 // import {activateFirstScreen} from '../game-1/game-1-view.js';
 import makeAScreenTemplate from '../screen.js';
 import {level} from '../data-structure.js';
-import gameOneView from '../game-1/game-1.js';
+// import gameOneView from '../game-1/game-1.js';
 
 const rulesView = new RulesView();
 
@@ -14,7 +14,7 @@ const numberOfGameScreen = 0;
 
 rulesView.onClick = () => {
   removeScreen();
-  showScreen(gameOneView.element);
+  // showScreen(gameOneView.element);
   // centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
   // makeAScreenTemplate(images, numberOfGameScreen, activateFirstScreen);
 };

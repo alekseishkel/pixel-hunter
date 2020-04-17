@@ -17,8 +17,8 @@ export default class GreetingView extends AbstractView {
   </div>`;
   }
 
-  bind() {
-    const arrow = this.element.querySelector(`.greeting__continue > span > img`);
+  bind(element) {
+    const arrow = element.querySelector(`.greeting__continue > span > img`);
 
     arrow.addEventListener(`click`, this.onClick);
   }

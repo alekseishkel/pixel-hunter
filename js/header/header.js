@@ -4,10 +4,10 @@ import greetingView from './../greeting/greeting.js';
 import GreetingView from './../greeting/greeting-view.js';
 import {initialState, answersMap} from '../data-structure.js';
 import {pointsCount} from '../game-result.js';
-import gameOneView from '../game-1/game-1.js';
+// import gameOneView from '../game-1/game-1.js';
 
 const headerView = new HeaderView(initialState);
-const grView = new GreetingView();
+// const greetingView = new GreetingView();
 const lifes = headerView.element.querySelectorAll(`.game__lives > img`);
 let clicksCounter = 0;
 
@@ -42,8 +42,9 @@ headerView.onClick = () => {
     elem.className = `stats__result stats__result--unknown`;
   });
 
+  console.log(greetingView);
   removeScreen();
-  showScreen(grView.element);
+  showScreen(greetingView.element);
 };
 
 export default headerView;
