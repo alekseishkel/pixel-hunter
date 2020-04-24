@@ -4,7 +4,7 @@ const makeAScreenTemplate = (arr, numberOfGameScreen, activateNextScreen) => {
   let screenTemplate;
   const gameTask = document.querySelector(`.game__task`);
   const gameContent = document.querySelector(`.game__content`);
-
+  console.log(gameTask);
   gameTask.textContent = `${level[numberOfGameScreen].description}`;
   gameContent.className = `${level[numberOfGameScreen].className}`;
 

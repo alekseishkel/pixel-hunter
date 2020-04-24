@@ -23,9 +23,9 @@
   font-size: 172px;
   color: #de1f1f;
   cursor: pointer;
-  position: relative;
-  top: 220px;
-  left: 30px; }
+  position: absolute;
+  top: 210px;
+  left: 394px; }
   .intro__asterisk:hover {
     color: #df4e4e; }
   .intro__asterisk:active {

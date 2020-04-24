@@ -18,7 +18,6 @@ export default class AbstracrtView {
     // wrapper.childNodes.forEach((element) => {
     //   fragment.appendChild(element);
     // });
-    console.log(wrapper);
     return wrapper;
   }
 

@@ -1,4 +1,5 @@
 import AbstractView from '../abstract-view.js';
+// import header from '../header.js';
 
 export default class RulesView extends AbstractView {
   get template() {
@@ -30,7 +31,6 @@ export default class RulesView extends AbstractView {
     });
 
     userNameInput.addEventListener(`keyup`, (evt) => {
-      console.log(`sa`);
       evt.preventDefault();
       this.onKeyup(goButton, userNameInput);
     });

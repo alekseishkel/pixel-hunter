@@ -15,7 +15,7 @@ const createDomElement = (template) => {
   return fragment;
 };
 
-const showScreen = (element, headerElement) => {
+const showScreen = (mainElement, headerElement, footerElement) => {
   // if (centralScreen.firstElementChild) {
   //   element.childNodes.forEach((node) => {
   //     centralScreen.prepend(node);
@@ -32,10 +32,19 @@ const showScreen = (element, headerElement) => {
   //     centralScreen.appendChild(node);
   //   });
   // }
-  centralScreen.appendChild(element);
+
+  if (!centralScreen.firstElementChild) {
+    centralScreen.insertAdjacentElement(`afterbegin`, mainElement);
+  } else {
+    centralScreen.lastElementChild.before(mainElement);
+  }
 
   if (headerElement) {
-    centralScreen.appendChild(headerElement);
+    centralScreen.insertAdjacentElement(`afterbegin`, headerElement);
+  }
+
+  if (footerElement) {
+    centralScreen.insertAdjacentElement(`beforeend`, footerElement);
   }
 
 };
@@ -43,7 +52,7 @@ const showScreen = (element, headerElement) => {
 const removeScreen = () => {
   const removableElements = Array.from(centralScreen.children);
   removableElements.forEach((node) => {
-    if (node.className !== `header` && node.className !== `footer`) {
+    if (node.firstElementChild.className !== `header` && node.firstElementChild.className !== `footer`) {
       centralScreen.removeChild(node);
     }
   });

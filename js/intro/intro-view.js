@@ -1,5 +1,4 @@
 import AbstractView from './../abstract-view.js';
-import footer from '../footer.js';
 
 export default class IntroView extends AbstractView {
   get template() {
@@ -7,8 +6,7 @@ export default class IntroView extends AbstractView {
       <h1 class="intro__asterisk">*</h1>
       <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf
         Sparnaay.</p>
-    </div>
-  ${footer}`;
+    </div>`;
   }
 
   bind() {
