@@ -1,6 +1,5 @@
 import {showScreen, removeScreen} from '../util.js';
 import RulesView from './rules-view.js';
-import {level} from '../data-structure.js';
 import gameOneView from '../game-1/game-1.js';
 
 const rulesView = new RulesView();
@@ -8,6 +7,7 @@ const rulesView = new RulesView();
 rulesView.onClick = () => {
   removeScreen();
   showScreen(gameOneView.element);
+  gameOneView.changeSizes();
 };
 
 rulesView.onKeyup = (goButton, userNameInput) => {

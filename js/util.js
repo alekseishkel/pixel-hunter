@@ -1,38 +1,6 @@
 const centralScreen = document.querySelector(`.central`);
 
-const createDomElement = (template) => {
-  // const wrapper = document.createElement(`div`);
-  // wrapper.insertAdjacentHTML(`afterbegin`, template);
-  // return wrapper;
-  const wrapper = document.createElement(`div`);
-  const fragment = document.createDocumentFragment();
-
-  wrapper.insertAdjacentHTML(`afterbegin`, template);
-  wrapper.childNodes.forEach((element) => {
-    fragment.appendChild(element);
-  });
-
-  return fragment;
-};
-
 const showScreen = (mainElement, headerElement, footerElement) => {
-  // if (centralScreen.firstElementChild) {
-  //   element.childNodes.forEach((node) => {
-  //     centralScreen.prepend(node);
-  //   });
-
-  //   if (headerElement) {
-  //     headerElement.childNodes.forEach((node) => {
-  //       centralScreen.prepend(node);
-  //     });
-  //   }
-
-  // } else {
-  //   element.childNodes.forEach((node) => {
-  //     centralScreen.appendChild(node);
-  //   });
-  // }
-
   if (!centralScreen.firstElementChild) {
     centralScreen.insertAdjacentElement(`afterbegin`, mainElement);
   } else {
@@ -46,7 +14,6 @@ const showScreen = (mainElement, headerElement, footerElement) => {
   if (footerElement) {
     centralScreen.insertAdjacentElement(`beforeend`, footerElement);
   }
-
 };
 
 const removeScreen = () => {
@@ -58,10 +25,48 @@ const removeScreen = () => {
   });
 };
 
-const removeGameElement = () => {
+const removeFullScreen = () => {
   while (centralScreen.firstChild) {
     centralScreen.removeChild(centralScreen.firstChild);
   }
 };
 
-export {createDomElement, showScreen, removeScreen, removeGameElement};
+const findAnswersIcons = () => {
+  const answersIcons = document.querySelectorAll(`ul.stats > .stats__result`);
+  return answersIcons;
+};
+
+const changeAnswersIcons = (icons) => {
+  const statsInGameScreen = document.querySelectorAll(`ul.stats > .stats__result`);
+  statsInGameScreen.forEach((elem, index) => {
+    elem.className = icons[index].className;
+  });
+};
+
+const copyAnswersIcons = () => {
+  const statsInGameScreen = document.querySelector(`ul.stats`).cloneNode(true);
+  return statsInGameScreen;
+};
+
+const pasteAnswersIcons = (icons) => {
+  const statsInStatsScreen = document.querySelector(`.result__table > tbody > tr > td`);
+  statsInStatsScreen.appendChild(icons);
+};
+
+const clearRadioButtons = () => {
+  const statsInGameScreen = document.querySelectorAll(`.game__answer > input`);
+  statsInGameScreen.forEach((elm) => {
+    elm.checked = false;
+  });
+};
+
+export {
+  showScreen,
+  removeScreen,
+  removeFullScreen,
+  findAnswersIcons,
+  changeAnswersIcons,
+  copyAnswersIcons,
+  pasteAnswersIcons,
+  clearRadioButtons
+};

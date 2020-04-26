@@ -1,5 +1,4 @@
 import AbstractView from '../abstract-view.js';
-// import header from '../header.js';
 
 export default class RulesView extends AbstractView {
   get template() {
@@ -34,15 +33,13 @@ export default class RulesView extends AbstractView {
       evt.preventDefault();
       this.onKeyup(goButton, userNameInput);
     });
-
-    return [goButton, userNameInput];
   }
 
   onClick() {
 
   }
 
-  onKeyup(goButton, userNameInput) {
+  onKeyup() {
 
   }
 }

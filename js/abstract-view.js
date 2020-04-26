@@ -11,13 +11,9 @@ export default class AbstracrtView {
 
   render() {
     const wrapper = document.createElement(`div`);
-    // const fragment = document.createDocumentFragment();
-
 
     wrapper.insertAdjacentHTML(`afterbegin`, this.template);
-    // wrapper.childNodes.forEach((element) => {
-    //   fragment.appendChild(element);
-    // });
+
     return wrapper;
   }
 
