@@ -1,12 +1,14 @@
 import {showScreen, removeScreen} from '../util.js';
 import RulesView from './rules-view.js';
-import gameOneView from '../game-1/game-1.js';
+import {startTimer} from '../header/header.js';
+import {gameOneView} from '../game-1/game-1.js';
 
 const rulesView = new RulesView();
 
 rulesView.onClick = () => {
   removeScreen();
   showScreen(gameOneView.element);
+  startTimer();
   gameOneView.changeSizes();
 };
 

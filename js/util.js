@@ -14,6 +14,10 @@ const showScreen = (mainElement, headerElement, footerElement) => {
   if (footerElement) {
     centralScreen.insertAdjacentElement(`beforeend`, footerElement);
   }
+
+  const currentScreen = mainElement;
+
+  return currentScreen;
 };
 
 const removeScreen = () => {
@@ -55,8 +59,8 @@ const pasteAnswersIcons = (icons) => {
 
 const clearRadioButtons = () => {
   const statsInGameScreen = document.querySelectorAll(`.game__answer > input`);
-  statsInGameScreen.forEach((elm) => {
-    elm.checked = false;
+  statsInGameScreen.forEach((elem) => {
+    elem.checked = false;
   });
 };
 

@@ -8,13 +8,17 @@ import {
 import {level, answersMap} from '../data-structure.js';
 import {gameResult} from '../game-result.js';
 import GameOneView from './game-1-view.js';
-import headerView from '../header/header.js';
+import {headerView} from '../header/header.js';
 import gameTwoView from '../game-2/game-2.js';
 
 const numberOfGameScreen = 1;
+
+const pictureClicks = {
+  clickCounterForLeftPicture: 0,
+  clickCounterForRightPictur: 0
+};
+
 const images = Array.from(level[numberOfGameScreen - 1].questions.images);
-let clickCounterForLeftPicture = 0;
-let clickCounterForRightPicture = 0;
 
 const gameOneView = new GameOneView(images, numberOfGameScreen);
 
@@ -30,26 +34,25 @@ gameOneView.onClick = (gameAnswer, elem) => {
   });
 
   if (gameAnswer[0].checked || gameAnswer[1].checked) {
-    ++clickCounterForLeftPicture;
-
-    if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
+    ++pictureClicks.clickCounterForLeftPicture;
+    if (pictureClicks.clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
       headerView.subtractOneLife();
       isCorrectAnswer = false;
       gameResult(isCorrectAnswer, picture);
-    } else if (clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
+    } else if (pictureClicks.clickCounterForLeftPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
       isCorrectAnswer = true;
       gameResult(isCorrectAnswer, picture);
     }
   }
 
   if (gameAnswer[2].checked || gameAnswer[3].checked) {
-    ++clickCounterForRightPicture;
+    ++pictureClicks.clickCounterForRightPicture;
 
-    if (clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
+    if (pictureClicks.clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer !== level[numberOfGameScreen - 1].answers.get(picture.src)) {
       headerView.subtractOneLife();
       isCorrectAnswer = false;
       gameResult(isCorrectAnswer, picture);
-    } else if (clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
+    } else if (pictureClicks.clickCounterForRightPicture === 1 && answersMap.get(picture.src).answer === level[numberOfGameScreen - 1].answers.get(picture.src)) {
       isCorrectAnswer = true;
       gameResult(isCorrectAnswer, picture);
     }
@@ -58,8 +61,8 @@ gameOneView.onClick = (gameAnswer, elem) => {
   if ((gameAnswer[0].checked || gameAnswer[1].checked) && (gameAnswer[2].checked || gameAnswer[3].checked)) {
     const icons = findAnswersIcons();
 
-    clickCounterForLeftPicture = 0;
-    clickCounterForRightPicture = 0;
+    pictureClicks.clickCounterForLeftPicture = 0;
+    pictureClicks.clickCounterForRightPicture = 0;
 
     clearRadioButtons();
     removeScreen();
@@ -69,4 +72,4 @@ gameOneView.onClick = (gameAnswer, elem) => {
   }
 };
 
-export default gameOneView;
+export {gameOneView, pictureClicks};

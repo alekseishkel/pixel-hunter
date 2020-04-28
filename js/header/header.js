@@ -1,14 +1,36 @@
-import {showScreen, removeFullScreen} from '../util.js';
+import {showScreen, removeFullScreen, clearRadioButtons} from '../util.js';
 import {initialState, answersMap} from '../data-structure.js';
 import {pointsCount} from '../game-result.js';
 import HeaderView from './header-view.js';
-import gameOneView from '../game-1/game-1.js';
+import {gameOneView, pictureClicks} from '../game-1/game-1.js';
 import greetingView from './../greeting/greeting.js';
 import footerView from './../footer/footer.js';
 
 const headerView = new HeaderView(initialState);
-
+const ONE_SECOND = 1000;
+const gameTimer = headerView.element.querySelector(`.game__timer`);
+let timer;
 let clicksCounter = 0;
+
+const tick = () => {
+  ++initialState.time;
+  updateTime();
+};
+
+const startTimer = () => {
+  timer = setTimeout(() => {
+    tick();
+    startTimer();
+  }, ONE_SECOND);
+};
+
+const stopTimer = () => {
+  clearTimeout(timer);
+};
+
+const updateTime = () => {
+  gameTimer.textContent = initialState.time;
+};
 
 headerView.subtractOneLife = () => {
   const lifes = document.querySelectorAll(`.game__lives > img`);
@@ -22,7 +44,12 @@ headerView.onClick = () => {
   const lifes = document.querySelectorAll(`.game__lives > img`);
 
   initialState.lives = 3;
+  initialState.time = 0;
+  gameTimer.textContent = initialState.time;
   clicksCounter = 0;
+  pictureClicks.clickCounterForLeftPicture = 0;
+  pictureClicks.clickCounterForRightPicture = 0;
+
   pointsCount.scores.points = 0;
   pointsCount.trueAnswer.points = 0;
   pointsCount.trueAnswer.count = 0;
@@ -42,8 +69,10 @@ headerView.onClick = () => {
     elem.className = `stats__result stats__result--unknown`;
   });
 
+  stopTimer();
+  clearRadioButtons();
   removeFullScreen();
   showScreen(greetingView.element, undefined, footerView.element);
 };
 
-export default headerView;
+export {headerView, startTimer, stopTimer};
