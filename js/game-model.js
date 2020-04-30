@@ -1,12 +1,30 @@
 import {initialState, answersMap} from './data-structure.js';
-import {showScreen} from './util.js';
 
-export default class GameModel {
+let level;
+const currentLevel = (lvl) => {
+  level = lvl;
+};
+
+class GameModel {
   get state() {
-    return this._state;
+    return Object.freeze(this._state);
   }
-  //???
-  currentLevel() {
-    return showScreen();
+
+  getCurrentLevel() {
+    this._state = level;
+  }
+
+  isAlive() {
+    return initialState.lives;
+  }
+
+  howMuchTime() {
+    return initialState.time;
+  }
+
+  getUserAnswers() {
+    return answersMap;
   }
 }
+
+export {currentLevel, GameModel};

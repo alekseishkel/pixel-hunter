@@ -10,12 +10,13 @@ import {gameResult} from '../game-result.js';
 import GameOneView from './game-1-view.js';
 import {headerView} from '../header/header.js';
 import gameTwoView from '../game-2/game-2.js';
+import {GameModel} from '../game-model.js';
 
 const numberOfGameScreen = 1;
 
 const pictureClicks = {
   clickCounterForLeftPicture: 0,
-  clickCounterForRightPictur: 0
+  clickCounterForRightPicture: 0
 };
 
 const images = Array.from(level[numberOfGameScreen - 1].questions.images);
@@ -67,6 +68,8 @@ gameOneView.onClick = (gameAnswer, elem) => {
     clearRadioButtons();
     removeScreen();
     showScreen(gameTwoView.element);
+    const gameModel = new GameModel();
+    console.log(gameModel.state());
     gameTwoView.changeSizes();
     changeAnswersIcons(icons, isGameScreen);
   }

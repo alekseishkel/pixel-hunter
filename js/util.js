@@ -1,3 +1,5 @@
+import {currentLevel} from './game-model.js';
+
 const centralScreen = document.querySelector(`.central`);
 
 const showScreen = (mainElement, headerElement, footerElement) => {
@@ -15,9 +17,7 @@ const showScreen = (mainElement, headerElement, footerElement) => {
     centralScreen.insertAdjacentElement(`beforeend`, footerElement);
   }
 
-  const currentScreen = mainElement;
-
-  return currentScreen;
+  currentLevel(mainElement);
 };
 
 const removeScreen = () => {

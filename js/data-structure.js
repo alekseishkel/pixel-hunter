@@ -46,5 +46,8 @@ const level = [
 ];
 
 let answersMap = new Map();
+let currentLevel = {
+  level: ``
+};
 
-export {initialState, level, answersMap};
+export {initialState, level, answersMap, currentLevel};
