@@ -69,7 +69,7 @@ gameOneView.onClick = (gameAnswer, elem) => {
     removeScreen();
     showScreen(gameTwoView.element);
     const gameModel = new GameModel();
-    console.log(gameModel.state());
+    console.log(gameModel.state);
     gameTwoView.changeSizes();
     changeAnswersIcons(icons, isGameScreen);
   }

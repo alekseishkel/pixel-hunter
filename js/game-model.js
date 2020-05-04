@@ -1,9 +1,11 @@
-import {initialState, answersMap} from './data-structure.js';
+import {initialState, level, answersMap} from './data-structure.js';
 
-let level;
+let leeevel;
 const currentLevel = (lvl) => {
-  level = lvl;
+  leeevel = lvl;
 };
+
+const getLevel = (state) => level[state];
 
 class GameModel {
   get state() {
@@ -11,7 +13,7 @@ class GameModel {
   }
 
   getCurrentLevel() {
-    this._state = level;
+    return getLevel(0);
   }
 
   isAlive() {
