@@ -4,7 +4,7 @@ let leeevel;
 const currentLevel = (lvl) => {
   leeevel = lvl;
 };
-
+// сделать геткаррентлевел как на скрине
 const getLevel = (state) => level[state];
 
 class GameModel {
