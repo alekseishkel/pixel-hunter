@@ -4,7 +4,7 @@ import {
   copyAnswersIcons,
   pasteAnswersIcons,
 } from '../util.js';
-import {level, answersMap} from '../data-structure.js';
+import {level, answersMap, initialState} from '../data-structure.js';
 import {gameResult, finalResult} from '../game-result.js';
 import GameThreeView from './game-3-view.js';
 import {headerView, stopTimer} from '../header/header.js';
@@ -41,6 +41,7 @@ gameThreeView.onClick = (elem) => {
   removeScreen();
   showScreen(statsView.element);
   pasteAnswersIcons(answersIcons);
+  ++initialState.screen;
 };
 
 export default gameThreeView;

@@ -5,7 +5,7 @@ import {
   changeAnswersIcons,
   clearRadioButtons
 } from '../util.js';
-import {level, answersMap} from '../data-structure.js';
+import {level, answersMap, initialState} from '../data-structure.js';
 import {gameResult} from '../game-result.js';
 import GameOneView from './game-1-view.js';
 import {headerView} from '../header/header.js';
@@ -72,6 +72,7 @@ gameOneView.onClick = (gameAnswer, elem) => {
     console.log(gameModel.state);
     gameTwoView.changeSizes();
     changeAnswersIcons(icons, isGameScreen);
+    ++initialState.screen;
   }
 };
 

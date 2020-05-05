@@ -4,20 +4,31 @@ let leeevel;
 const currentLevel = (lvl) => {
   leeevel = lvl;
 };
-// сделать геткаррентлевел как на скрине
-const getLevel = (state) => level[state];
 
 class GameModel {
-  get state() {
-    return Object.freeze(this._state);
+  constructor() {
+    this.restart();
   }
 
-  getCurrentLevel() {
-    return getLevel(0);
+  get state() {
+    return this._state;
+  }
+
+  getCurrentScreen() {
+    return this._state.screen;
+  }
+
+  // start() {
+  //   this._state = initialState;
+  // }
+
+  restart() {
+    //здесь перезапускаем игру с гритин, т.е. инитСтейт.скрин = 2 (для такой логики в начале надо сделать ассайн инитиал стейта)
+    this._state = initialState;
   }
 
   isAlive() {
-    return initialState.lives;
+    return initialState.lives >= 0;
   }
 
   howMuchTime() {

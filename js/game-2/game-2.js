@@ -49,6 +49,7 @@ gameTwoView.onClick = (elem) => {
     removeScreen();
     showScreen(statsView.element);
     pasteAnswersIcons(answersIcons);
+    initialState.screen = 7;
   } else {
     const icons = findAnswersIcons();
 
@@ -56,6 +57,7 @@ gameTwoView.onClick = (elem) => {
     showScreen(gameThreeView.element);
     gameThreeView.changeSizes();
     changeAnswersIcons(icons, isGameScreen);
+    ++initialState.screen;
   }
 };
 

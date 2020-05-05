@@ -1,6 +1,7 @@
 const initialState = {
   lives: 3,
-  time: 0
+  time: 0,
+  screen: 1
 };
 
 const level = [

@@ -1,4 +1,5 @@
 import {showScreen, removeScreen} from '../util.js';
+import {initialState} from '../data-structure.js';
 import RulesView from './rules-view.js';
 import {startTimer} from '../header/header.js';
 import {gameOneView} from '../game-1/game-1.js';
@@ -10,6 +11,7 @@ rulesView.onClick = () => {
   showScreen(gameOneView.element);
   startTimer();
   gameOneView.changeSizes();
+  ++initialState.screen;
 };
 
 rulesView.onKeyup = (goButton, userNameInput) => {
