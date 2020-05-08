@@ -10,7 +10,7 @@ import {gameResult} from '../game-result.js';
 import GameOneView from './game-1-view.js';
 import {headerView} from '../header/header.js';
 import gameTwoView from '../game-2/game-2.js';
-import {GameModel} from '../game-model.js';
+import GameModel from '../game-model.js';
 
 const numberOfGameScreen = 1;
 

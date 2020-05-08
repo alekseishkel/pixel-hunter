@@ -1,9 +1,6 @@
-import {initialState, level, answersMap} from './data-structure.js';
+import {initialState, answersMap} from './data-structure.js';
 
-let leeevel;
-const currentLevel = (lvl) => {
-  leeevel = lvl;
-};
+const gameState = Object.assign({}, initialState);
 
 class GameModel {
   constructor() {
@@ -11,11 +8,15 @@ class GameModel {
   }
 
   get state() {
-    return this._state;
+    return Object.freeze(this._state);
   }
 
   getCurrentScreen() {
     return this._state.screen;
+  }
+
+  nextScreen() {
+    this._state = gameState.screen + 1;
   }
 
   // start() {
@@ -23,8 +24,8 @@ class GameModel {
   // }
 
   restart() {
-    //здесь перезапускаем игру с гритин, т.е. инитСтейт.скрин = 2 (для такой логики в начале надо сделать ассайн инитиал стейта)
-    this._state = initialState;
+    // здесь перезапускаем игру с гритин, т.е. инитСтейт.скрин = 2 (для такой логики в начале надо сделать ассайн инитиал стейта)
+    this._state = gameState;
   }
 
   isAlive() {
@@ -40,4 +41,4 @@ class GameModel {
   }
 }
 
-export {currentLevel, GameModel};
+export default GameModel;
