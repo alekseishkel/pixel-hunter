@@ -8,20 +8,20 @@ class GameModel {
   }
 
   get state() {
-    return Object.freeze(this._state);
+    return this._state;
   }
 
   getCurrentScreen() {
     return this._state.screen;
   }
 
-  nextScreen() {
-    this._state = gameState.screen + 1;
-  }
-
   // start() {
   //   this._state = initialState;
   // }
+  nextScreen() {
+    ++this._state.screen;
+    console.log(this._state);
+  }
 
   restart() {
     // здесь перезапускаем игру с гритин, т.е. инитСтейт.скрин = 2 (для такой логики в начале надо сделать ассайн инитиал стейта)
@@ -29,11 +29,11 @@ class GameModel {
   }
 
   isAlive() {
-    return initialState.lives >= 0;
+    return gameState.lives >= 0;
   }
 
   howMuchTime() {
-    return initialState.time;
+    return gameState.time;
   }
 
   getUserAnswers() {

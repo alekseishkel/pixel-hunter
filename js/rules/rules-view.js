@@ -26,7 +26,7 @@ export default class RulesView extends AbstractView {
 
     goButton.addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      this.onClick();
+      this.onClick(userNameInput);
     });
 
     userNameInput.addEventListener(`keyup`, (evt) => {

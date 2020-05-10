@@ -1,5 +1,15 @@
 import FooterView from './footer-view.js';
 
-const footerView = new FooterView();
+// const footerView = new FooterView();
 
-export default footerView;
+class FooterPresenter {
+  constructor() {
+    this.footer = new FooterView();
+  }
+
+  get element() {
+    return this.footer.element;
+  }
+}
+
+export default FooterPresenter;

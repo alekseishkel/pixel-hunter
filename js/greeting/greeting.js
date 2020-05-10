@@ -1,15 +1,38 @@
 import {showScreen, removeScreen} from '../util.js';
 import {initialState} from '../data-structure.js';
+import Application from '../application.js';
 import GreetingView from './greeting-view.js';
 import rulesView from './../rules/rules.js';
-import {headerView} from '../header/header.js';
+// import {headerView} from '../header/header.js';
 
-const greetingView = new GreetingView();
+// greetingView.onClick = () => {
+//   removeScreen();
+//   showScreen(rulesView.element, headerView.element);
+//   ++initialState.screen;
+// };
 
-greetingView.onClick = () => {
-  removeScreen();
-  showScreen(rulesView.element, headerView.element);
-  ++initialState.screen;
-};
+class GreetingPresenter {
+  constructor(model) {
+    this.model = model;
+    this.main = new GreetingView();
+  }
 
-export default greetingView;
+  get element() {
+    return this.main.element;
+  }
+
+  onArrowClick() {
+    this.main.onClick = () => {
+      this.model.nextScreen();
+
+      Application.showRules();
+      // removeScreen();
+      // showScreen(greetingView.element);
+      // const gameModel = new GameModel();
+      // console.log(gameModel.getCurrentScreen());
+      // ++initialState.screen;
+    };
+  }
+}
+
+export default GreetingPresenter;

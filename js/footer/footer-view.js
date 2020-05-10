@@ -1,6 +1,6 @@
 import AbstractView from '../abstract-view.js';
 
-export default class HeaderView extends AbstractView {
+export default class FooterView extends AbstractView {
   get template() {
     return `<footer class="footer">
     <a href="https://htmlacademy.ru" class="social-link social-link--academy">HTML Academy</a>

@@ -1,5 +1,3 @@
-import GameModel from './game-model.js';
-
 const centralScreen = document.querySelector(`.central`);
 
 const showScreen = (mainElement, headerElement, footerElement) => {
@@ -16,8 +14,6 @@ const showScreen = (mainElement, headerElement, footerElement) => {
   if (footerElement) {
     centralScreen.insertAdjacentElement(`beforeend`, footerElement);
   }
-
-  // GameModel => nextScreen + 1
 };
 
 const removeScreen = () => {

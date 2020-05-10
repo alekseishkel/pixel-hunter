@@ -10,7 +10,8 @@ import {
 import {initialState, level, answersMap} from '../data-structure.js';
 import {gameResult, finalResult} from '../game-result.js';
 import GameTwoView from './game-2-view.js';
-import {headerView, stopTimer} from '../header/header.js';
+import headerView from '../header/header.js';
+// import {headerView, stopTimer} from '../header/header.js';
 import makeStatsView from '../stats/stats.js';
 import gameThreeView from '../game-3/game-3.js';
 
@@ -45,7 +46,7 @@ gameTwoView.onClick = (elem) => {
     const result = finalResult();
     const statsView = makeStatsView(result);
 
-    stopTimer();
+    // stopTimer();
     removeScreen();
     showScreen(statsView.element);
     pasteAnswersIcons(answersIcons);

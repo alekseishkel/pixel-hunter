@@ -1,25 +1,28 @@
 import {showScreen, removeScreen} from '../util.js';
 import {initialState} from '../data-structure.js';
 import GameModel from '../game-model.js';
+import Application from '../application.js';
 import IntroView from './intro-view.js';
 import greetingView from './../greeting/greeting.js';
 import footerView from './../footer/footer.js';
 
-const introView = new IntroView();
-
-class IntroScreen {
+class IntroPresenter {
   constructor(model) {
     this.model = model;
-    this.content = new IntroView();
+    this.main = new IntroView();
+  }
+
+  get element() {
+    return this.main.element;
+  }
+
+  onAsteriskClick() {
+    this.main.onClick = () => {
+      this.model.nextScreen();
+
+      Application.showGreeting();
+    };
   }
 }
 
-// introView.onClick = () => {
-//   removeScreen();
-//   showScreen(greetingView.element);
-//   const gameModel = new GameModel();
-//   console.log(gameModel.getCurrentScreen());
-//   ++initialState.screen;
-// };
-
-// showScreen(introView.element, undefined, footerView.element);
+export default IntroPresenter;
