@@ -22,10 +22,6 @@ export default class HeaderView extends AbstractView {
   </header>`;
   }
 
-  subtractOneLife() {
-
-  }
-
   bind() {
     const backArrow = this.element.querySelector(`.back > img`);
 

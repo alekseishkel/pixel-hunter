@@ -2,12 +2,12 @@ import AbstractView from '../abstract-view.js';
 import changeImageSizes from '../change-images-sizes.js';
 
 export default class StasView extends AbstractView {
-  constructor(result, POINTS_COUNT, POINTS_SCORE, initialState) {
+  constructor(result, POINTS_COUNT, POINTS_SCORE, model) {
     super();
     this.result = result;
     this.POINTS_COUNT = POINTS_COUNT;
     this.POINTS_SCORE = POINTS_SCORE;
-    this.initialState = initialState;
+    this.model = model;
   }
 
   get template() {
@@ -16,6 +16,12 @@ export default class StasView extends AbstractView {
     <table class="result__table">
       <tr>
         <td colspan="2">
+          <ul class="stats">
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--unknown"></li>
+            <li class="stats__result stats__result--unknown"></li>
+          </ul>
         </td>
         <td class="result__points">×&nbsp;${this.POINTS_SCORE.trueAnswerScore}</td>
         <td class="result__total">${this.POINTS_COUNT.trueAnswer.points}</td>
@@ -30,7 +36,7 @@ export default class StasView extends AbstractView {
       <tr>
         <td></td>
         <td class="result__extra">Бонус за жизни:</td>
-        <td class="result__extra">${this.initialState.lives}&nbsp;<span class="stats__result stats__result--heart"></span></td>
+        <td class="result__extra">${this.model.state.lives}&nbsp;<span class="stats__result stats__result--heart"></span></td>
         <td class="result__points">×&nbsp;${this.POINTS_SCORE.oneLiveScore}</td>
         <td class="result__total">${this.POINTS_COUNT.oneLive.points}</td>
       </tr>

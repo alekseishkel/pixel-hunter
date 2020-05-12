@@ -1,43 +1,37 @@
-import {initialState, answersMap} from './data-structure.js';
-
-const gameState = Object.assign({}, initialState);
+import {initialState} from './data-structure.js';
 
 class GameModel {
   constructor() {
-    this.restart();
+    this.start();
   }
 
   get state() {
     return this._state;
   }
 
-  getCurrentScreen() {
-    return this._state.screen;
-  }
-
-  // start() {
-  //   this._state = initialState;
-  // }
-  nextScreen() {
-    ++this._state.screen;
-    console.log(this._state);
-  }
-
-  restart() {
-    // здесь перезапускаем игру с гритин, т.е. инитСтейт.скрин = 2 (для такой логики в начале надо сделать ассайн инитиал стейта)
+  start() {
+    let gameState = Object.assign({}, initialState);
     this._state = gameState;
   }
 
-  isAlive() {
-    return gameState.lives >= 0;
+  restart() {
+    let gameState = Object.assign({}, initialState, {
+      screen: 2
+    });
+    this._state = gameState;
   }
 
-  howMuchTime() {
-    return gameState.time;
+  nextScreen() {
+    ++this._state.screen;
   }
 
-  getUserAnswers() {
-    return answersMap;
+  updateTime() {
+    ++this._state.time;
+    return this._state.time;
+  }
+
+  gameOver() {
+    this._state.screen = 7;
   }
 }
 

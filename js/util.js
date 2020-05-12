@@ -25,10 +25,13 @@ const removeScreen = () => {
   });
 };
 
-const removeFullScreen = () => {
-  while (centralScreen.firstChild) {
-    centralScreen.removeChild(centralScreen.firstChild);
-  }
+const removeScreenWithoutFooter = () => {
+  const removableElements = Array.from(centralScreen.children);
+  removableElements.forEach((node) => {
+    if (node.firstElementChild.className !== `footer`) {
+      centralScreen.removeChild(node);
+    }
+  });
 };
 
 const findAnswersIcons = () => {
@@ -41,32 +44,26 @@ const changeAnswersIcons = (icons) => {
   statsInGameScreen.forEach((elem, index) => {
     elem.className = icons[index].className;
   });
-};
 
-const copyAnswersIcons = () => {
-  const statsInGameScreen = document.querySelector(`ul.stats`).cloneNode(true);
-  return statsInGameScreen;
-};
-
-const pasteAnswersIcons = (icons) => {
-  const statsInStatsScreen = document.querySelector(`.result__table > tbody > tr > td`);
-  statsInStatsScreen.appendChild(icons);
+  icons.forEach((elem) => {
+    elem.className = `stats__result stats__result--unknown`;
+  });
 };
 
 const clearRadioButtons = () => {
-  const statsInGameScreen = document.querySelectorAll(`.game__answer > input`);
-  statsInGameScreen.forEach((elem) => {
-    elem.checked = false;
-  });
+  const radioButtons = document.querySelectorAll(`.game__answer > input`);
+  if (radioButtons) {
+    radioButtons.forEach((elem) => {
+      elem.checked = false;
+    });
+  }
 };
 
 export {
   showScreen,
   removeScreen,
-  removeFullScreen,
+  removeScreenWithoutFooter,
   findAnswersIcons,
   changeAnswersIcons,
-  copyAnswersIcons,
-  pasteAnswersIcons,
   clearRadioButtons
 };

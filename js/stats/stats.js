@@ -1,10 +1,16 @@
-import {POINTS_SCORE, pointsCount} from '../game-result.js';
-import {initialState} from '../data-structure.js';
+import {POINTS_SCORE, pointsCount, finalResult} from '../game-result.js';
 import StatsView from './stats-view.js';
 
-const makeStatsView = (result) => {
-  const statsView = new StatsView(result, pointsCount, POINTS_SCORE, initialState);
-  return statsView;
-};
+class StatsPresenter {
+  constructor(model) {
+    this.model = model;
+    this.result = finalResult(this.model);
+    this.main = new StatsView(this.result, pointsCount, POINTS_SCORE, this.model);
+  }
 
-export default makeStatsView;
+  get element() {
+    return this.main.element;
+  }
+}
+
+export default StatsPresenter;

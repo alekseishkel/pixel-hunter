@@ -1,12 +1,12 @@
-import {initialState, answersMap} from './data-structure.js';
+import {answersMap} from './data-structure.js';
 
 const POINTS_SCORE = {
   trueAnswerScore: 100,
   fastAnswerScore: 50,
   slowAnswerScore: 50,
   oneLiveScore: 50,
-  slowSpeed: 15000,
-  fastSpeed: 5000
+  slowSpeed: 7,
+  fastSpeed: 3
 };
 
 let pointsCount = {
@@ -61,15 +61,16 @@ const gameResult = (answer, screenPicture) => {
   }
 };
 
-const finalResult = () => {
+const finalResult = (model) => {
   let result;
-  if (initialState.lives > 0) {
-    pointsCount.scores.points += (initialState.lives * POINTS_SCORE.oneLiveScore);
+  if (model.state.lives > 0) {
+
+    pointsCount.scores.points += (model.state.lives * POINTS_SCORE.oneLiveScore);
+    pointsCount.oneLive.points += (model.state.lives * POINTS_SCORE.oneLiveScore);
     result = `Победа!`;
-    pointsCount.oneLive.points += (initialState.lives * POINTS_SCORE.oneLiveScore);
   } else {
-    result = `Поражение!`;
     pointsCount.scores.points = 0;
+    result = `Поражение!`;
   }
   return result;
 };
