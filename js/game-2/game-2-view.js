@@ -11,7 +11,7 @@ export default class GameTwoView extends AbstractView {
 
   get template() {
     return `<div class="game">
-    <p class="game__task"></p>
+    <p class="game__task">${level[this.numberOfGameScreen - 1].description}</p>
     <form class="game__content game__content--wide">
       <div class="game__option">
         <img src=${this.images[0]} alt="Option 1" width=${level[this.numberOfGameScreen - 1].questions.imagesSizes.width}>

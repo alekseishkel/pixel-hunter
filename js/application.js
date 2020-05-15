@@ -6,6 +6,8 @@ import {
   changeAnswersIcons
 } from './util.js';
 import GameModel from './game-model.js';
+import StartLoading from './loading-screen.js';
+import ErrorScreen from './error-screen.js';
 import IntroPresenter from './intro/intro.js';
 import GreetingPresenter from './greeting/greeting.js';
 import RulesPresenter from './rules/rules.js';
@@ -16,13 +18,40 @@ import GameTwoPresenter from './game-2/game-2.js';
 import GameThreePresenter from './game-3/game-3.js';
 import StatsPresenter from './stats/stats.js';
 
-const gameModel = new GameModel();
+let gameModel = new GameModel();
 const headerPresenter = new HeaderPresenter(gameModel);
 
+const checkResponse = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
+};
+
 export default class Application {
+  static startLoading() {
+    const loadingScreen = new StartLoading();
+    showScreen(loadingScreen.element);
+    loadingScreen.start();
+    window.fetch(`https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`) // получаю неправильные данные
+      .then(checkResponse)
+      .then((response) => response.json())
+      .then(() => Application.showIntro())
+      .catch((err) => Application.showErrorScreen(err))
+      .then(() => loadingScreen.stop());
+  }
+
+  static showErrorScreen(err) {
+    const errorScreen = new ErrorScreen(err);
+    removeScreen();
+    showScreen(errorScreen.element);
+  }
+
   static showIntro() {
     const introPresenter = new IntroPresenter(gameModel);
     const footerPresenter = new FooterPresenter();
+    removeScreen();
     introPresenter.onAsteriskClick();
     showScreen(introPresenter.element, undefined, footerPresenter.element);
   }
@@ -47,6 +76,9 @@ export default class Application {
     const gameOnePresenter = new GameOnePresenter(gameModel, headerPresenter);
     removeScreen();
     gameOnePresenter.onPictureClick();
+    // if (gameData.question = `tinder-like`) {
+    //   showScreen(gameOnePresenter.element);
+    // }
     showScreen(gameOnePresenter.element);
     headerPresenter.startTimer();
     gameOnePresenter.changeImageSizes();
@@ -82,4 +114,4 @@ export default class Application {
   }
 }
 
-Application.showIntro();
+Application.startLoading();

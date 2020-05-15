@@ -3,6 +3,7 @@ import IntroView from './intro-view.js';
 
 class IntroPresenter {
   constructor(model) {
+
     this.model = model;
     this.main = new IntroView();
   }
