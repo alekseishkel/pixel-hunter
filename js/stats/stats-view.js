@@ -51,6 +51,7 @@ export default class StasView extends AbstractView {
         <td colspan="5" class="result__total  result__total--final">${this.POINTS_COUNT.scores.points}</td>
       </tr>
     </table>
+    <a href="" class="last__results" style="font-size: 30px">Показать последние результаты</a>
     </div>`;
   }
 
@@ -60,10 +61,11 @@ export default class StasView extends AbstractView {
   }
 
   bind() {
-    const gameAnswer = this.element.querySelectorAll(`.game__answer > input`);
-    gameAnswer.forEach((elem) => elem.addEventListener(`click`, () => {
-      this.onClick(elem);
-    }));
+    const lastResults = this.element.querySelector(`.last__results`);
+    lastResults.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      this.onClick();
+    });
   }
 
   onClick() {

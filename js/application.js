@@ -5,8 +5,10 @@ import {
   findAnswersIcons,
   changeAnswersIcons
 } from './util.js';
+import {answersMap} from './data-structure.js';
 import GameModel from './game-model.js';
-import StartLoading from './loading-screen.js';
+import Loader from './loader.js';
+import LoadingScreen from './loading-screen.js';
 import ErrorScreen from './error-screen.js';
 import IntroPresenter from './intro/intro.js';
 import GreetingPresenter from './greeting/greeting.js';
@@ -17,26 +19,18 @@ import {GameOnePresenter} from './game-1/game-1.js';
 import GameTwoPresenter from './game-2/game-2.js';
 import GameThreePresenter from './game-3/game-3.js';
 import StatsPresenter from './stats/stats.js';
+import ScoreBoard from './score-board.js';
+import ScoreLoading from './score-loading-screen.js';
 
 let gameModel = new GameModel();
 const headerPresenter = new HeaderPresenter(gameModel);
 
-const checkResponse = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status} ${response.statusText}`);
-  }
-};
-
 export default class Application {
   static startLoading() {
-    const loadingScreen = new StartLoading();
+    const loadingScreen = new LoadingScreen();
     showScreen(loadingScreen.element);
     loadingScreen.start();
-    window.fetch(`https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/questions`) // получаю неправильные данные
-      .then(checkResponse)
-      .then((response) => response.json())
+    Loader.loadData()
       .then(() => Application.showIntro())
       .catch((err) => Application.showErrorScreen(err))
       .then(() => loadingScreen.stop());
@@ -76,9 +70,6 @@ export default class Application {
     const gameOnePresenter = new GameOnePresenter(gameModel, headerPresenter);
     removeScreen();
     gameOnePresenter.onPictureClick();
-    // if (gameData.question = `tinder-like`) {
-    //   showScreen(gameOnePresenter.element);
-    // }
     showScreen(gameOnePresenter.element);
     headerPresenter.startTimer();
     gameOnePresenter.changeImageSizes();
@@ -108,9 +99,28 @@ export default class Application {
     const statsPresenter = new StatsPresenter(gameModel);
     const icons = findAnswersIcons();
     removeScreen();
+    statsPresenter.onLastResultsClick();
     headerPresenter.stopTimer();
     showScreen(statsPresenter.element);
     changeAnswersIcons(icons);
+  }
+
+  static showScoreBoard(scores) {
+    const scoreBoard = new ScoreBoard(scores);
+    removeScreen();
+    showScreen(scoreBoard.element);
+  }
+
+  static showScoreLoading() {
+    const scoreLoading = new ScoreLoading();
+    removeScreen();
+    showScreen(scoreLoading.element);
+    scoreLoading.start();
+    Loader.sendResults(gameModel, answersMap.get(`name`))
+      .then(() => Loader.loadResults(answersMap.get(`name`)))
+      .then((scores) => Application.showScoreBoard(scores))
+      .catch((err) => Application.showErrorScreen(err))
+      .then(() => scoreLoading.stop());
   }
 }
 

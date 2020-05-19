@@ -1,5 +1,6 @@
 import {POINTS_SCORE, pointsCount, finalResult} from '../game-result.js';
 import StatsView from './stats-view.js';
+import Application from '../application.js';
 
 class StatsPresenter {
   constructor(model) {
@@ -10,6 +11,12 @@ class StatsPresenter {
 
   get element() {
     return this.main.element;
+  }
+
+  onLastResultsClick() {
+    this.main.onClick = () => {
+      Application.showScoreLoading();
+    };
   }
 }
 
