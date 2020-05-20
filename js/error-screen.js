@@ -8,7 +8,7 @@ export default class ErrorScreen extends AbstractView {
 
   get template() {
     return `
-    <div style="width: 680px; margin: 200px 0; font-size: 40px">
+    <div style="margin: 100px 0; font-size: 40px">
       <p style="margin: 0">Произошла ошибка: ${this.error.message}</p>
     </div>`;
   }

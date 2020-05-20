@@ -11,7 +11,7 @@ export default class ScoreLoading extends AbstractView {
 
 
   get template() {
-    return `<div style="width: 680px; margin: 200px 0; font-size: 40px"></div>`;
+    return `<div style="margin: 100px 0; font-size: 30px"></div>`;
   }
 
   start() {

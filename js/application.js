@@ -26,14 +26,18 @@ let gameModel = new GameModel();
 const headerPresenter = new HeaderPresenter(gameModel);
 
 export default class Application {
-  static startLoading() {
+  static async startLoading() {
     const loadingScreen = new LoadingScreen();
     showScreen(loadingScreen.element);
     loadingScreen.start();
-    Loader.loadData()
-      .then(() => Application.showIntro())
-      .catch((err) => Application.showErrorScreen(err))
-      .then(() => loadingScreen.stop());
+    try {
+      await Loader.loadData();
+      Application.showIntro();
+    } catch (error) {
+      Application.showErrorScreen(error);
+    } finally {
+      loadingScreen.stop();
+    }
   }
 
   static showErrorScreen(err) {
@@ -111,17 +115,19 @@ export default class Application {
     showScreen(scoreBoard.element);
   }
 
-  static showScoreLoading() {
+  static async showScoreLoading() {
     const scoreLoading = new ScoreLoading();
     removeScreen();
     showScreen(scoreLoading.element);
     scoreLoading.start();
-    Loader.sendResults(gameModel, answersMap.get(`name`))
-      .then(() => Loader.loadResults(answersMap.get(`name`)))
-      .then((scores) => Application.showScoreBoard(scores))
-      .catch((err) => Application.showErrorScreen(err))
-      .then(() => scoreLoading.stop());
+    try {
+      await Loader.sendResults(gameModel, answersMap.get(`name`));
+      const scores = await Loader.loadResults(answersMap.get(`name`));
+      Application.showScoreBoard(scores);
+    } catch (error) {
+      Application.showErrorScreen(error);
+    } finally {
+      scoreLoading.stop();
+    }
   }
 }
-
-Application.startLoading();
