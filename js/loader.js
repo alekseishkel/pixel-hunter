@@ -13,10 +13,6 @@ const checkResponse = (response) => {
 const toJSON = (res) => res.json();
 
 export default class Loader {
-  static loadData() {
-    return fetch(`${SERVER_URL}/questions`).then(checkResponse).then(toJSON);
-  }
-
   static loadResults(name) {
     return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`).then(checkResponse).then(toJSON);
   }

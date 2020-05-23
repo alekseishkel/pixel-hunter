@@ -8,7 +8,6 @@ import {
 import {answersMap} from './data-structure.js';
 import GameModel from './game-model.js';
 import Loader from './loader.js';
-import LoadingScreen from './loading-screen.js';
 import ErrorScreen from './error-screen.js';
 import IntroPresenter from './intro/intro.js';
 import GreetingPresenter from './greeting/greeting.js';
@@ -26,26 +25,6 @@ let gameModel = new GameModel();
 const headerPresenter = new HeaderPresenter(gameModel);
 
 export default class Application {
-  static async startLoading() {
-    const loadingScreen = new LoadingScreen();
-    showScreen(loadingScreen.element);
-    loadingScreen.start();
-    try {
-      await Loader.loadData();
-      Application.showIntro();
-    } catch (error) {
-      Application.showErrorScreen(error);
-    } finally {
-      loadingScreen.stop();
-    }
-  }
-
-  static showErrorScreen(err) {
-    const errorScreen = new ErrorScreen(err);
-    removeScreen();
-    showScreen(errorScreen.element);
-  }
-
   static showIntro() {
     const introPresenter = new IntroPresenter(gameModel);
     const footerPresenter = new FooterPresenter();
@@ -129,5 +108,11 @@ export default class Application {
     } finally {
       scoreLoading.stop();
     }
+  }
+
+  static showErrorScreen(err) {
+    const errorScreen = new ErrorScreen(err);
+    removeScreen();
+    showScreen(errorScreen.element);
   }
 }
